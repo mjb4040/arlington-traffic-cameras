@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Arlington Traffic Cameras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      #map {
+        position: relative;
+      }
+
+      .map-panel {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        z-index: 5;
+        width: 320px;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+        padding: 14px;
+      }
+
+      .map-panel h1 {
+        margin: 0 0 10px 0;
+        font-size: 18px;
+      }
+
+      .map-panel p {
+        margin: 0 0 10px 0;
+        font-size: 13px;
+        color: #444;
+      }
+
+      .search-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .search-row input {
+        flex: 1;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .search-row button {
+        padding: 10px 12px;
+        border: none;
+        border-radius: 8px;
+        background: #1a73e8;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .search-row button.secondary {
+        background: #5f6368;
+      }
+
+      .legend {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        font-size: 12px;
+        color: #333;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .legend-online {
+        background: #1e8e3e;
+      }
+
+      .legend-offline {
+        background: #d93025;
+      }
+
+      .legend-unknown {
+        background: #80868b;
+      }
+
+      .result-count {
+        margin-top: 8px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .info-window {
+        min-width: 240px;
+        max-width: 280px;
+        font-family: Arial, sans-serif;
+      }
+
+      .info-title {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #202124;
+      }
+
+      .info-row {
+        margin: 4px 0;
+        font-size: 13px;
+        color: #333;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+      }
+
+      .status-online {
+        background: #1e8e3e;
+      }
+
+      .status-offline {
+        background: #d93025;
+      }
+
+      .status-unknown {
+        background: #80868b;
+      }
+
+      .info-actions {
+        margin-top: 10px;
+      }
+
+      .info-actions a {
+        color: #1a73e8;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <div class="map-panel">
+      <h1>Arlington Traffic Cameras</h1>
+      <p>Search by camera name, site, status, or corridor.</p>
+
+      <div class="search-row">
+        <input
+          id="cameraSearch"
+          type="text"
+          placeholder="Search cameras..."
+        />
+        <button id="searchBtn">Search</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+      </div>
+
+      <div id="resultCount" class="result-count">Loading cameras...</div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-dot legend-online"></span>
+          <span>ONLINE</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot legend-offline"></span>
+          <span>OFFLINE</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot legend-unknown"></span>
+          <span>UNKNOWN</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let map;
+      let infoWindow;
+      let allMarkers = [];
+      let clusterer = null;
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function getStatusClass(status) {
+        const normalized = (status || "").toUpperCase().trim();
+        if (normalized === "ONLINE") return "status-online";
+        if (normalized === "OFFLINE") return "status-offline";
+        return "status-unknown";
+      }
+
+      function getMarkerIcon(status) {
+        const normalized = (status || "").toUpperCase().trim();
+
+        let color = "80868b"; // gray
+        if (normalized === "ONLINE") color = "1e8e3e";
+        if (normalized === "OFFLINE") color = "d93025";
+
+        // SVG circle icon via data URI
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <circle cx="9" cy="9" r="7" fill="#${color}" stroke="white" stroke-width="2"/>
+          </svg>
+        `;
+
+        return {
+          url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg),
+          scaledSize: new google.maps.Size(18, 18),
+        };
+      }
+
+      function buildInfoContent(camera) {
+        const status = (camera.status || "UNKNOWN").toUpperCase().trim();
+        const statusClass = getStatusClass(status);
+
+        const mapsLink = `https://www.google.com/maps?q=${camera.latitude},${camera.longitude}`;
+
+        return `
+          <div class="info-window">
+            <div class="info-title">${escapeHtml(camera.camera_name || "Unknown camera")}</div>
+            <div class="info-row"><strong>Site:</strong> ${escapeHtml(camera.camera_site || "N/A")}</div>
+            <div class="info-row">
+              <strong>Status:</strong>
+              <span class="status-badge ${statusClass}">${escapeHtml(status || "UNKNOWN")}</span>
+            </div>
+            <div class="info-row"><strong>Port:</strong> ${escapeHtml(camera.port || "N/A")}</div>
+            <div class="info-row"><strong>Coordinates:</strong> ${camera.latitude}, ${camera.longitude}</div>
+            <div class="info-actions">
+              <a href="${mapsLink}" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+            </div>
+          </div>
+        `;
+      }
+
+      function fitToMarkers(markers) {
+        if (!markers.length) return;
+
+        const bounds = new google.maps.LatLngBounds();
+        markers.forEach(marker => bounds.extend(marker.getPosition()));
+        map.fitBounds(bounds);
+
+        google.maps.event.addListenerOnce(map, "bounds_changed", () => {
+          if (map.getZoom() > 14) {
+            map.setZoom(14);
+          }
+        });
+      }
+
+      function renderMarkers(markersToShow) {
+        if (clusterer) {
+          clusterer.clearMarkers();
+        }
+
+        allMarkers.forEach(marker => marker.setMap(null));
+
+        markersToShow.forEach(marker => marker.setMap(map));
+
+        clusterer = new markerClusterer.MarkerClusterer({
+          map,
+          markers: markersToShow
+        });
+
+        document.getElementById("resultCount").textContent =
+          `${markersToShow.length} camera(s) shown`;
+
+        if (markersToShow.length) {
+          fitToMarkers(markersToShow);
+        }
+      }
+
+      function applySearch() {
+        const query = document.getElementById("cameraSearch").value.trim().toLowerCase();
+
+        if (!query) {
+          renderMarkers(allMarkers);
+          return;
+        }
+
+        const filtered = allMarkers.filter(marker => {
+          const c = marker.cameraData;
+          return [
+            c.camera_name,
+            c.camera_site,
+            c.status,
+            c.port
+          ]
+            .filter(Boolean)
+            .some(value => String(value).toLowerCase().includes(query));
+        });
+
+        renderMarkers(filtered);
+      }
+
+      async function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 38.8816, lng: -77.0910 },
+          zoom: 13,
+          mapTypeControl: true,
+          fullscreenControl: true,
+          streetViewControl: false,
+          scaleControl: true,
+        });
+
+        infoWindow = new google.maps.InfoWindow();
+
+        const response = await fetch("./traffic_cameras_clean.json");
+        const cameras = await response.json();
+
+        const validCameras = cameras.filter(c =>
+          typeof c.latitude === "number" &&
+          typeof c.longitude === "number" &&
+          (c.camera_name || c.camera_site)
+        );
+
+        allMarkers = validCameras.map(c => {
+          const marker = new google.maps.Marker({
+            position: { lat: c.latitude, lng: c.longitude },
+            title: c.camera_name || c.camera_site || "Camera",
+            icon: getMarkerIcon(c.status),
+          });
+
+          marker.cameraData = c;
+
+          marker.addListener("click", () => {
+            infoWindow.setContent(buildInfoContent(c));
+            infoWindow.open({
+              map,
+              anchor: marker,
+            });
+          });
+
+          return marker;
+        });
+
+        renderMarkers(allMarkers);
+
+        document.getElementById("searchBtn").addEventListener("click", applySearch);
+
+        document.getElementById("resetBtn").addEventListener("click", () => {
+          document.getElementById("cameraSearch").value = "";
+          renderMarkers(allMarkers);
+        });
+
+        document.getElementById("cameraSearch").addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            applySearch();
+          }
+        });
+      }
+    </script>
+
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY5DaIF5Uuc3dEInFrfDxkZeC7WciFspk&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
+</html>

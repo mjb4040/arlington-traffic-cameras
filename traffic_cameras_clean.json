@@ -1,0 +1,2442 @@
+[
+  {
+    "camera_site":"cam1",
+    "camera_name":"Columbia Pike @ Walter Reed - 026",
+    "latitude":38.862563,
+    "longitude":-77.08702,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam2",
+    "camera_name":"Columbia Pike @ S Glebe  - 024",
+    "latitude":38.861252,
+    "longitude":-77.09204,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam3",
+    "camera_name":"Columbia Pike @ S George Mason - 021",
+    "latitude":38.858774,
+    "longitude":-77.10132,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam4",
+    "camera_name":"RT 50 @ Carlin Springs - 036",
+    "latitude":38.866192,
+    "longitude":-77.12841,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam6",
+    "camera_name":"RT 29 @ Fairfax Dr - 124",
+    "latitude":38.887478,
+    "longitude":-77.1621,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam7",
+    "camera_name":"RT 1 @ 23rd CAM-1 - 004",
+    "latitude":38.853407,
+    "longitude":-77.05246,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam8",
+    "camera_name":"RT 50 @ Glebe - 042",
+    "latitude":38.870847,
+    "longitude":-77.10095,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam9",
+    "camera_name":"N Glebe Rd @ Fairfax - 093",
+    "latitude":38.882078,
+    "longitude":-77.11582,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam10",
+    "camera_name":"N Glebe Rd @ Washington - 113",
+    "latitude":38.885394,
+    "longitude":-77.11716,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam11",
+    "camera_name":"Wilson Blvd @ Washington - 063",
+    "latitude":38.88599,
+    "longitude":-77.09691,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam12",
+    "camera_name":"Ft Myer Dr @ Fairfax - 076",
+    "latitude":38.893126,
+    "longitude":-77.07182,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam13",
+    "camera_name":"RT 29 @ N Lynn (EB) - 088",
+    "latitude":38.898238,
+    "longitude":-77.07078,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam14",
+    "camera_name":"RT 29 @ N Veitch - 145",
+    "latitude":38.895935,
+    "longitude":-77.08651,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam15",
+    "camera_name":"RT 29 @ N Military - 136",
+    "latitude":38.897067,
+    "longitude":-77.1085,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam16",
+    "camera_name":"N Glebe Rd @ N Chain Bridge - 172",
+    "latitude":38.929137,
+    "longitude":-77.11767,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam17",
+    "camera_name":"RT 29 @ N Glebe - 132",
+    "latitude":38.897559,
+    "longitude":-77.12359,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam18",
+    "camera_name":"RT 29 @ N Harrison - 129",
+    "latitude":38.896303,
+    "longitude":-77.13772,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam19",
+    "camera_name":"Wilson Blvd @ N Lynn - 082",
+    "latitude":38.89509,
+    "longitude":-77.0708,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam20",
+    "camera_name":"18th St S @ S Bell - 207",
+    "latitude":38.857642,
+    "longitude":-77.05117,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam21",
+    "camera_name":"S Glebe Rd @ S ArlingtonRidge - 149",
+    "latitude":38.845339,
+    "longitude":-77.06498,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam22",
+    "camera_name":"S Glebe Rd @ 26th S - 152",
+    "latitude":38.845128,
+    "longitude":-77.07817,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam23",
+    "camera_name":"RT 50 @ Patrick Henry - 037",
+    "latitude":38.868556,
+    "longitude":-77.14676,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam24",
+    "camera_name":"N Sycamore St @ I-66 Off Ramp - 257",
+    "latitude":38.886433,
+    "longitude":-77.1563,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam25",
+    "camera_name":"19th St N @ N Moore - 084",
+    "latitude":38.897139,
+    "longitude":-77.07151,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam26",
+    "camera_name":"RT 1 @ S Glebe - 001",
+    "latitude":38.842612,
+    "longitude":-77.05264,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam27",
+    "camera_name":"Crystal Dr @ 27th S - 199",
+    "latitude":38.848258,
+    "longitude":-77.0515,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam28",
+    "camera_name":"Crystal Dr @ 26th S - 200",
+    "latitude":38.850284,
+    "longitude":-77.05052,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam29",
+    "camera_name":"S Potomac Ave @ S Glebe - 218",
+    "latitude":38.842806,
+    "longitude":-77.05009,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam30",
+    "camera_name":"RT 1 @ 33rd S - 006",
+    "latitude":38.845352,
+    "longitude":-77.05296,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam31",
+    "camera_name":"S Hayes St @ 12th S - 215",
+    "latitude":38.863043,
+    "longitude":-77.05942,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam32",
+    "camera_name":"S Hayes St @ 15th S - 214",
+    "latitude":38.860514,
+    "longitude":-77.05977,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam33",
+    "camera_name":"Army Navy Dr @ S Eads - 009",
+    "latitude":38.864849,
+    "longitude":-77.05433,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam34",
+    "camera_name":"Army Navy Dr @ S Joyce - 012",
+    "latitude":38.865897,
+    "longitude":-77.06274,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam35",
+    "camera_name":"RT 50 @ George Mason - 041",
+    "latitude":38.869327,
+    "longitude":-77.1069,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam36",
+    "camera_name":"S Glebe Rd @ Walter Reed - 155",
+    "latitude":38.855145,
+    "longitude":-77.08851,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam37",
+    "camera_name":"S Glebe Rd @ I-395 (Off Ramp) - 335",
+    "latitude":38.847543,
+    "longitude":-77.07992,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam38",
+    "camera_name":"Wilson Blvd @ N Glebe - 056",
+    "latitude":38.880037,
+    "longitude":-77.11389,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam39",
+    "camera_name":"Wilson Blvd @ N Highland - 065",
+    "latitude":38.887432,
+    "longitude":-77.095,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam40",
+    "camera_name":"Wilson Blvd @ N Uhle - 190",
+    "latitude":38.891485,
+    "longitude":-77.08485,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam41",
+    "camera_name":"RT 29 @ N Scott (WB) - 146",
+    "latitude":38.897398,
+    "longitude":-77.08058,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam42",
+    "camera_name":"RT 29 @ N Oak (WB) - 147",
+    "latitude":38.899001,
+    "longitude":-77.07539,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam43",
+    "camera_name":"N Courthouse Rd @ 15th N - 243",
+    "latitude":38.890825,
+    "longitude":-77.08384,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam44",
+    "camera_name":"RT 29 @ Ft Myer Dr (WB) - 090",
+    "latitude":38.899064,
+    "longitude":-77.07197,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam45",
+    "camera_name":"RT 29 @ N Kirkwood Rd - 140",
+    "latitude":38.895851,
+    "longitude":-77.09621,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam46",
+    "camera_name":"Washington Blvd @ 10th N - 121",
+    "latitude":38.884476,
+    "longitude":-77.09294,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam47",
+    "camera_name":"Fairfax Dr @ N Kirkwood - 100",
+    "latitude":38.884755,
+    "longitude":-77.09963,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam48",
+    "camera_name":"Clarendon Blvd @ S Edgewood - 104",
+    "latitude":38.888386,
+    "longitude":-77.09168,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam49",
+    "camera_name":"Columbia Pike @ S Barton - 027",
+    "latitude":38.863304,
+    "longitude":-77.0841,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam50",
+    "camera_name":"N Glebe Rd @ N Henderson - 158",
+    "latitude":38.876091,
+    "longitude":-77.10832,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam51",
+    "camera_name":"N Glebe Rd @ N Pershing - 157",
+    "latitude":38.873869,
+    "longitude":-77.1052,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam52",
+    "camera_name":"RT 50 @ Pershing - 045",
+    "latitude":38.881205,
+    "longitude":-77.08421,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam53",
+    "camera_name":"Washington Blvd @ N Garfield - 321",
+    "latitude":38.885049,
+    "longitude":-77.09372,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam54",
+    "camera_name":"Wilson Blvd @ N Pollard - 323",
+    "latitude":38.88001,
+    "longitude":-77.10636,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam57",
+    "camera_name":"N Glebe Rd @ N Vermont - 336",
+    "latitude":38.880745,
+    "longitude":-77.11511,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam58",
+    "camera_name":"Wilson Blvd @ N Stuart - 057",
+    "latitude":38.880006,
+    "longitude":-77.11156,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam59",
+    "camera_name":"Clarendon Blvd @ S Garfield - 102",
+    "latitude":38.88744,
+    "longitude":-77.09399,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam60",
+    "camera_name":"Columbia Pike @ S Queen - 029",
+    "latitude":38.865687,
+    "longitude":-77.0748,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam61",
+    "camera_name":"Fairfax Dr @ N Randolph - 096",
+    "latitude":38.882416,
+    "longitude":-77.10942,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam62",
+    "camera_name":"Fairfax Dr @ N Quincy - 097",
+    "latitude":38.882487,
+    "longitude":-77.10775,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam63",
+    "camera_name":"Fairfax Dr @ N Stafford - 095",
+    "latitude":38.882321,
+    "longitude":-77.11051,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam64",
+    "camera_name":"Fairfax Dr @ N Stuart - 094",
+    "latitude":38.882187,
+    "longitude":-77.11183,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam65",
+    "camera_name":"Wilson Blvd @ N Edgewood - 068",
+    "latitude":38.88921,
+    "longitude":-77.09178,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam66",
+    "camera_name":"Columbia Pike @ S Courthouse - 028",
+    "latitude":38.864273,
+    "longitude":-77.08033,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam67",
+    "camera_name":"Clarendon Blvd @ S Barton - 106",
+    "latitude":38.889571,
+    "longitude":-77.08855,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam68",
+    "camera_name":"Clarendon Blvd @ S Wayne - 189",
+    "latitude":38.890418,
+    "longitude":-77.08649,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam69",
+    "camera_name":"Columbia Pike @ Navy Annex - 031",
+    "latitude":38.867308,
+    "longitude":-77.06858,
+    "port":"8001",
+    "status":"OFFLINE"
+  },
+  {
+    "camera_site":"cam70",
+    "camera_name":"N Glebe Rd @ N Randolph - 159",
+    "latitude":38.877112,
+    "longitude":-77.10973,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam71",
+    "camera_name":"S Glebe Rd @ 2nd S - 311",
+    "latitude":38.868462,
+    "longitude":-77.098,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam72",
+    "camera_name":"S Glebe Rd @ 5th S - 312",
+    "latitude":38.867027,
+    "longitude":-77.09563,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam73",
+    "camera_name":"S Glebe Rd @ 7th S - 156",
+    "latitude":38.865629,
+    "longitude":-77.09319,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam74",
+    "camera_name":"10th St N @ N Highland - 265",
+    "latitude":38.884441,
+    "longitude":-77.09459,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam75",
+    "camera_name":"Columbia Pike @ S Joyce - 032",
+    "latitude":38.870135,
+    "longitude":-77.06531,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam76",
+    "camera_name":"Wilson Blvd @ N Randolph - 059",
+    "latitude":38.879865,
+    "longitude":-77.10906,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam77",
+    "camera_name":"Columbia Pike @ S Highland - 025",
+    "latitude":38.862043,
+    "longitude":-77.08904,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam78",
+    "camera_name":"Wilson Blvd @ N Barton - 070",
+    "latitude":38.890414,
+    "longitude":-77.08865,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam79",
+    "camera_name":"RT 29 @ N Nash (WB) - 089",
+    "latitude":38.899091,
+    "longitude":-77.07366,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam80",
+    "camera_name":"Wilson Blvd @ N Fillmore - 067",
+    "latitude":38.888692,
+    "longitude":-77.09321,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam81",
+    "camera_name":"Washington Blvd @ N Highland - 120",
+    "latitude":38.885697,
+    "longitude":-77.09477,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam82",
+    "camera_name":"Wilson Blvd @ 10th N - 062",
+    "latitude":38.88447,
+    "longitude":-77.09861,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam83",
+    "camera_name":"Wilson Blvd @ N Monroe - 061",
+    "latitude":38.881935,
+    "longitude":-77.1027,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam84",
+    "camera_name":"Fairfax Dr @ N Taylor - 328",
+    "latitude":38.88216,
+    "longitude":-77.1127,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam85",
+    "camera_name":"Clarendon Blvd @ S Highland - 101",
+    "latitude":38.886997,
+    "longitude":-77.09493,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam86",
+    "camera_name":"Washington Blvd @ N Pershing - 122",
+    "latitude":38.880812,
+    "longitude":-77.09046,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam87",
+    "camera_name":"RT 50 @ Montague - 034",
+    "latitude":38.866146,
+    "longitude":-77.13757,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam88",
+    "camera_name":"S Fern St @ 15th S - 211",
+    "latitude":38.859693,
+    "longitude":-77.05611,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam89",
+    "camera_name":"Clarendon Blvd @ S Rhodes - 244",
+    "latitude":38.892688,
+    "longitude":-77.07983,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam90",
+    "camera_name":"N Courthouse Rd @ 13th N - 241",
+    "latitude":38.888226,
+    "longitude":-77.08351,
+    "port":"8001",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam91",
+    "camera_name":"N Courthouse Rd @ 14th N - 242",
+    "latitude":38.88962,
+    "longitude":-77.08368,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam92",
+    "camera_name":"19th St N @ N Lynn - 085",
+    "latitude":38.89712,
+    "longitude":-77.07084,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam93",
+    "camera_name":"Army Navy Dr @ Parking Garage - 205",
+    "latitude":38.865674,
+    "longitude":-77.0605,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam94",
+    "camera_name":"19th St N @ N Kent - 327",
+    "latitude":38.897034,
+    "longitude":-77.06958,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam95",
+    "camera_name":"Key Blvd @ N Veitch - 245",
+    "latitude":38.893375,
+    "longitude":-77.08613,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam96",
+    "camera_name":"Key Blvd @ N Quinn - 246",
+    "latitude":38.89604,
+    "longitude":-77.07843,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam97",
+    "camera_name":"Key Bridge @ GW Parkway - 092",
+    "latitude":38.899981,
+    "longitude":-77.07127,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam98",
+    "camera_name":"RT 29 @ N Highland - 141",
+    "latitude":38.894882,
+    "longitude":-77.09421,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam99",
+    "camera_name":"RT 29 @ N Danville - 142",
+    "latitude":38.89464,
+    "longitude":-77.09319,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam100",
+    "camera_name":"RT 29 @ N Cleveland - 143",
+    "latitude":38.894816,
+    "longitude":-77.09125,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam101",
+    "camera_name":"RT 29 @ N Adams - 144",
+    "latitude":38.895358,
+    "longitude":-77.08888,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam102",
+    "camera_name":"Wilson Blvd @ N Pierce - 078",
+    "latitude":38.894387,
+    "longitude":-77.07673,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam103",
+    "camera_name":"Wilson Blvd @ N Rhodes - 073",
+    "latitude":38.893242,
+    "longitude":-77.08027,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam104",
+    "camera_name":"Wilson Blvd @ N Veitch - 071",
+    "latitude":38.891117,
+    "longitude":-77.08576,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam105",
+    "camera_name":"Clarendon Blvd @ S Pierce - 075",
+    "latitude":38.893446,
+    "longitude":-77.07658,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam106",
+    "camera_name":"Wilson Blvd @ N Oak - 079",
+    "latitude":38.894802,
+    "longitude":-77.07385,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam107",
+    "camera_name":"Wilson Blvd @ N Courthouse - 072",
+    "latitude":38.891613,
+    "longitude":-77.08395,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam108",
+    "camera_name":"Wilson Blvd @ N Kent - 320",
+    "latitude":38.89469,
+    "longitude":-77.06941,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam109",
+    "camera_name":"Wilson Blvd @ N Ft Myer Dr - 081",
+    "latitude":38.894922,
+    "longitude":-77.07218,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam110",
+    "camera_name":"N Lynn St @ Fairfax - 077",
+    "latitude":38.893342,
+    "longitude":-77.07121,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam111",
+    "camera_name":"RT 29 @ N Nash (EB) - 086",
+    "latitude":38.898418,
+    "longitude":-77.07358,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam112",
+    "camera_name":"RT 29 @ Ft Myer Dr (EB) - 087",
+    "latitude":38.898337,
+    "longitude":-77.0725,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam113",
+    "camera_name":"RT 29 @ N Lynn (WB) - 091",
+    "latitude":38.89898,
+    "longitude":-77.07076,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam114",
+    "camera_name":"Wilson Blvd @ N Quinn - 074",
+    "latitude":38.894089,
+    "longitude":-77.07816,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam115",
+    "camera_name":"19th St N @ Ft Myer - 083",
+    "latitude":38.896786,
+    "longitude":-77.07244,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam116",
+    "camera_name":"Fairfax Dr @ N Nelson - 098",
+    "latitude":38.883078,
+    "longitude":-77.10411,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam117",
+    "camera_name":"Crystal Dr @ 23rd S - 201",
+    "latitude":38.853293,
+    "longitude":-77.04954,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam119",
+    "camera_name":"Wilson Blvd @ N Nash - 080",
+    "latitude":38.894819,
+    "longitude":-77.07313,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam120",
+    "camera_name":"S Eads St @ 15th S - 197",
+    "latitude":38.859879,
+    "longitude":-77.0535,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam121",
+    "camera_name":"S Walter Reed Dr @ 11th S - 334",
+    "latitude":38.86147,
+    "longitude":-77.08696,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam122",
+    "camera_name":"12th St S @ S Clark - 208",
+    "latitude":38.862907,
+    "longitude":-77.05119,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam123",
+    "camera_name":"Crystal Dr @ 15th S - 204",
+    "latitude":38.860046,
+    "longitude":-77.04928,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam125",
+    "camera_name":"Army Navy Dr @ S Fern - 010",
+    "latitude":38.865145,
+    "longitude":-77.05664,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam126",
+    "camera_name":"Columbia Pike @ S Carlin Springs - 013",
+    "latitude":38.853202,
+    "longitude":-77.12202,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam127",
+    "camera_name":"Columbia Pike @ S Greenbrier - 014",
+    "latitude":38.854049,
+    "longitude":-77.11771,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam128",
+    "camera_name":"Columbia Pike @ S Thomas - 19",
+    "latitude":38.857923,
+    "longitude":-77.10429,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam129",
+    "camera_name":"Columbia Pike @ S Quincy - 022",
+    "latitude":38.859525,
+    "longitude":-77.09871,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam130",
+    "camera_name":"Columbia Pike @ S Monroe - 023",
+    "latitude":38.860771,
+    "longitude":-77.09393,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam131",
+    "camera_name":"Crystal Dr @ 20th S - 202",
+    "latitude":38.856108,
+    "longitude":-77.0493,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam132",
+    "camera_name":"Crystal Dr @ 18th S - 203",
+    "latitude":38.85756,
+    "longitude":-77.04924,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam133",
+    "camera_name":"Crystal Dr @ Water Park - 206",
+    "latitude":38.859544,
+    "longitude":-77.04914,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam134",
+    "camera_name":"Crystal Dr @ MidBlock A - 209",
+    "latitude":38.855387,
+    "longitude":-77.04936,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam135",
+    "camera_name":"Crystal Dr @ MidBlock B - 213",
+    "latitude":38.854155,
+    "longitude":-77.04943,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam136",
+    "camera_name":"S Eads St @ 23rd S - 194",
+    "latitude":38.853353,
+    "longitude":-77.05344,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam137",
+    "camera_name":"S Eads St @ 18th S - 196",
+    "latitude":38.85739,
+    "longitude":-77.0531,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam138",
+    "camera_name":"S Fern St @ 23rd S - 220",
+    "latitude":38.853351,
+    "longitude":-77.05528,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam139",
+    "camera_name":"RT 1 @ 27th S - 002",
+    "latitude":38.848155,
+    "longitude":-77.053,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam140",
+    "camera_name":"RT 1 @ 20th S - 005",
+    "latitude":38.855903,
+    "longitude":-77.05223,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam141",
+    "camera_name":"S Kenmore St @ 22nd S - 229",
+    "latitude":38.849858,
+    "longitude":-77.08563,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam142",
+    "camera_name":"S Glebe Rd @ S Eads  - 148",
+    "latitude":38.842769,
+    "longitude":-77.05474,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam143",
+    "camera_name":"S Glebe Rd @ Shirlington - 154",
+    "latitude":38.851712,
+    "longitude":-77.08549,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam144",
+    "camera_name":"S Glebe Rd @ 12th S - 318",
+    "latitude":38.859556,
+    "longitude":-77.09164,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam145",
+    "camera_name":"Shirlington Rd @ Campbell - 226",
+    "latitude":38.840733,
+    "longitude":-77.08597,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam146",
+    "camera_name":"Shirlington Rd @ 24th - 302",
+    "latitude":38.847805,
+    "longitude":-77.08397,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam147",
+    "camera_name":"Shirlington Rd @ Arlington Mill - 228",
+    "latitude":38.84296,
+    "longitude":-77.0857,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam148",
+    "camera_name":"Shirlington Rd @ S 4 Mile Run - 301",
+    "latitude":38.844011,
+    "longitude":-77.08569,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam149",
+    "camera_name":"Columbia Pike @ S Dinwiddle - 015",
+    "latitude":38.855926,
+    "longitude":-77.11219,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam150",
+    "camera_name":"Columbia Pike @ S Jefferson - 003",
+    "latitude":38.853324,
+    "longitude":-77.12042,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam151",
+    "camera_name":"S Arlington Mill @ Taylor - 223",
+    "latitude":38.843661,
+    "longitude":-77.09184,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam152",
+    "camera_name":"S Arlington Mill @ Randolph - 224",
+    "latitude":38.84191,
+    "longitude":-77.08864,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam153",
+    "camera_name":"S Arlington Mill @ Parking Garage - 225",
+    "latitude":38.842783,
+    "longitude":-77.09054,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam154",
+    "camera_name":"Crystal Dr @ 23rd S (Hawk) - 605",
+    "latitude":38.852248,
+    "longitude":-77.04978,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam155",
+    "camera_name":"S Quincy St @ Campbell - 227",
+    "latitude":38.840796,
+    "longitude":-77.08674,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam159",
+    "camera_name":"Wilson Blvd @ N N Wakefield - 337",
+    "latitude":38.879495,
+    "longitude":-77.11589,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam160",
+    "camera_name":"Wilson Blvd @ N McKinley - 046",
+    "latitude":38.873364,
+    "longitude":-77.14712,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam161",
+    "camera_name":"Wilson Blvd @ N Larrimore - 049",
+    "latitude":38.873713,
+    "longitude":-77.1398,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam162",
+    "camera_name":"Wilson Blvd @ N Lexington - 050",
+    "latitude":38.875326,
+    "longitude":-77.13242,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam163",
+    "camera_name":"Wilson Blvd @ N Jefferson - 051",
+    "latitude":38.876425,
+    "longitude":-77.1282,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam164",
+    "camera_name":"S Fern St @ 18th S - 210",
+    "latitude":38.85731,
+    "longitude":-77.05573,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam165",
+    "camera_name":"15th St S @ Parking Garage - 216",
+    "latitude":38.860947,
+    "longitude":-77.06239,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam166",
+    "camera_name":"Wilson Blvd @ N George Mason - 054",
+    "latitude":38.878255,
+    "longitude":-77.12088,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam167",
+    "camera_name":"Wilson Blvd @ N Abingdon - 055",
+    "latitude":38.878955,
+    "longitude":-77.11805,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam168",
+    "camera_name":"RT 29 @ Old Dominion Dr - 133",
+    "latitude":38.898451,
+    "longitude":-77.121,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam169",
+    "camera_name":"RT 29 @ N Wakefield - 161",
+    "latitude":38.898877,
+    "longitude":-77.11942,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam170",
+    "camera_name":"N Glebe Rd @ I-66 (Off Ramp) - 162",
+    "latitude":38.88727,
+    "longitude":-77.11809,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam171",
+    "camera_name":"N Glebe Rd @ 15th N - 163",
+    "latitude":38.888913,
+    "longitude":-77.11887,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam172",
+    "camera_name":"N Glebe Rd @ 16th N - 164",
+    "latitude":38.889493,
+    "longitude":-77.11904,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam173",
+    "camera_name":"N Glebe Rd @ 18th N - 165",
+    "latitude":38.892433,
+    "longitude":-77.11942,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam174",
+    "camera_name":"N Glebe Rd @ 11th N - 231",
+    "latitude":38.88362,
+    "longitude":-77.11649,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam175",
+    "camera_name":"Fairfax Dr @ N Wakefield - 232",
+    "latitude":38.882044,
+    "longitude":-77.11734,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam176",
+    "camera_name":"Washington Blvd @ N Stafford - 115",
+    "latitude":38.885584,
+    "longitude":-77.11095,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam177",
+    "camera_name":"Army Navy Dr @ S Hayes - 011",
+    "latitude":38.865397,
+    "longitude":-77.05867,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam178",
+    "camera_name":"S Walter Reed Dr @ 7th S - 177",
+    "latitude":38.866967,
+    "longitude":-77.08791,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam179",
+    "camera_name":"N Sycamore St @ 19th N - 256",
+    "latitude":38.884623,
+    "longitude":-77.15603,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam180",
+    "camera_name":"S Hayes St @ Fire House - 278",
+    "latitude":38.857835,
+    "longitude":-77.05816,
+    "port":"8002",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam181",
+    "camera_name":"N Glebe Rd @ N Carlin Springs - 160",
+    "latitude":38.878229,
+    "longitude":-77.11128,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam182",
+    "camera_name":"S Joyce St @ N Entrance - 332",
+    "latitude":38.864619,
+    "longitude":-77.06328,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam183",
+    "camera_name":"RT 1 @ 15th S CAM-1 - 007",
+    "latitude":38.859969,
+    "longitude":-77.05151,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam184",
+    "camera_name":"RT 1 @ 15th S CAM-2 - 7A",
+    "latitude":38.859969,
+    "longitude":-77.05151,
+    "port":"8003",
+    "status":"OFFLINE"
+  },
+  {
+    "camera_site":"cam185",
+    "camera_name":"Columbia Pike @ S Buchanan - 017",
+    "latitude":38.856708,
+    "longitude":-77.10853,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam186",
+    "camera_name":"RT 50 @ WB Ramp - 341",
+    "latitude":38.886526,
+    "longitude":-77.08311,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam187",
+    "camera_name":"RT 50 @ EB Ramp - 340",
+    "latitude":38.886221,
+    "longitude":-77.08409,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam188",
+    "camera_name":"Columbia Pike @ S Wakefield - 018",
+    "latitude":38.857286,
+    "longitude":-77.10648,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam189",
+    "camera_name":"Wilson Blvd @ N Edison - 053",
+    "latitude":38.87796,
+    "longitude":-77.1221,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam190",
+    "camera_name":"S Joyce St @ S Entrance - 333",
+    "latitude":38.862962,
+    "longitude":-77.06368,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam191",
+    "camera_name":"N Sycamore St @ Washington - 107",
+    "latitude":38.887498,
+    "longitude":-77.156335,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam192",
+    "camera_name":"N Glebe Rd @ Rock Springs - 338",
+    "latitude":38.908053,
+    "longitude":-77.13119,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam193",
+    "camera_name":"RT 29 @ Fire Station #3 - 339",
+    "latitude":38.897824,
+    "longitude":-77.109903,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam194",
+    "camera_name":"Washington Blvd @ N Longfellow - 111",
+    "latitude":38.884779,
+    "longitude":-77.140126,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam195",
+    "camera_name":"RT 50 @ Manchester - 035",
+    "latitude":38.866262,
+    "longitude":-77.134187,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam196",
+    "camera_name":"RT 50 @ Edison - 038",
+    "latitude":38.866665,
+    "longitude":-77.120469,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam197",
+    "camera_name":"RT 50 @ Park - 039",
+    "latitude":38.866949,
+    "longitude":-77.115721,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam198",
+    "camera_name":"RT 50 @ Henderson - 040",
+    "latitude":38.867593,
+    "longitude":-77.112878,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam199",
+    "camera_name":"RT 50 @ Irving - 043",
+    "latitude":38.872413,
+    "longitude":-77.093635,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam200",
+    "camera_name":"Washington Blvd @ N Ohio - 108",
+    "latitude":38.887317,
+    "longitude":-77.146968,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam201",
+    "camera_name":"Washington Blvd @ N McKinley - 109",
+    "latitude":38.885806,
+    "longitude":-77.141961,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam202",
+    "camera_name":"Washington Blvd @ Patrick Henry - 110",
+    "latitude":38.883405,
+    "longitude":-77.137813,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam203",
+    "camera_name":"Washington Blvd @ N George Mason - 112",
+    "latitude":38.885078,
+    "longitude":-77.126756,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam204",
+    "camera_name":"Washington Blvd @ N Quincy - 116",
+    "latitude":38.886061,
+    "longitude":-77.108186,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam205",
+    "camera_name":"Washington Blvd @ N Lincoln - 117",
+    "latitude":38.88609,
+    "longitude":-77.10368,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam206",
+    "camera_name":"Washington Blvd @ 13th N - 119",
+    "latitude":38.886167,
+    "longitude":-77.099256,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam207",
+    "camera_name":"Washington Blvd @ N Kirkwood - 118",
+    "latitude":38.885989,
+    "longitude":-77.100165,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam208",
+    "camera_name":"N Pershing Dr @ N Fillmore - 123",
+    "latitude":38.879886,
+    "longitude":-77.092391,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam209",
+    "camera_name":"RT 29 @ Washington - 125",
+    "latitude":38.888249,
+    "longitude":-77.161037,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam210",
+    "camera_name":"RT 29 @ N Sycamore - 126",
+    "latitude":38.89042,
+    "longitude":-77.156414,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam211",
+    "camera_name":"RT 29 @ N Lexington - 128",
+    "latitude":38.894771,
+    "longitude":-77.144019,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam212",
+    "camera_name":"RT 29 @ N George Mason - 130",
+    "latitude":38.896384,
+    "longitude":-77.13363,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam213",
+    "camera_name":"RT 29 @ N Culpepper - 131",
+    "latitude":38.896413,
+    "longitude":-77.12752,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam214",
+    "camera_name":"Cherry Hill Rd @ Lorcom - 134",
+    "latitude":38.898569,
+    "longitude":-77.117888,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam215",
+    "camera_name":"RT 29 @ Lorcom - 135",
+    "latitude":38.899373,
+    "longitude":-77.116384,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam216",
+    "camera_name":"N Military Rd @ N Marcey - 252",
+    "latitude":38.907633,
+    "longitude":-77.110622,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam217",
+    "camera_name":"N Sycamore St @ 26th N - 258",
+    "latitude":38.89451,
+    "longitude":-77.157591,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam218",
+    "camera_name":"Yorktown Blvd @ Little Falls Rd - 259",
+    "latitude":38.903996,
+    "longitude":-77.142296,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam220",
+    "camera_name":"Williamsburg Blvd @ N Sycamore - 263",
+    "latitude":38.900059,
+    "longitude":-77.156759,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam221",
+    "camera_name":"Washington Blvd @ Brookside CAM-1 - 264",
+    "latitude":38.87761,
+    "longitude":-77.086552,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam222",
+    "camera_name":"Williamsburg Blvd @ N Westmoreland - 266",
+    "latitude":38.894813,
+    "longitude":-77.167229,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam223",
+    "camera_name":"RT 29 @ N Westmoreland - 267",
+    "latitude":38.88684,
+    "longitude":-77.162928,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam224",
+    "camera_name":"Old Dominion Dr @ Rock Springs - 270",
+    "latitude":38.907739,
+    "longitude":-77.132763,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam225",
+    "camera_name":"Old Dominion Dr @ Williamsburg - 271",
+    "latitude":38.910252,
+    "longitude":-77.139148,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam226",
+    "camera_name":"Williamsburg Blvd @ N Harrison - 272",
+    "latitude":38.907257,
+    "longitude":-77.145905,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam227",
+    "camera_name":"Washington Blvd @ GMU\/FDIC - 273",
+    "latitude":38.886071,
+    "longitude":-77.102782,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam228",
+    "camera_name":"S Walter Reed Dr @ Fire House (S Oakland) - 279",
+    "latitude":38.851609,
+    "longitude":-77.091564,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam229",
+    "camera_name":"S 4-Mile Run @ DMV - 315",
+    "latitude":38.849144,
+    "longitude":-77.099053,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam230",
+    "camera_name":"S 4-Mile Run @ Sports Center - 329",
+    "latitude":38.850781,
+    "longitude":-77.10136,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam231",
+    "camera_name":"S George Mason Dr @ S Frederick - 607",
+    "latitude":38.848599,
+    "longitude":-77.112621,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam232",
+    "camera_name":"RT 29 @ N Pollard - 137",
+    "latitude":38.896679,
+    "longitude":-77.10724,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam233",
+    "camera_name":"RT 29 @ I-66 On Ramp - 138",
+    "latitude":38.896191,
+    "longitude":-77.099742,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam234",
+    "camera_name":"S Glebe Rd @ S Meade - 150",
+    "latitude":38.844757,
+    "longitude":-77.069774,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam235",
+    "camera_name":"S Glebe Rd @ S 4-Mile Run - 151",
+    "latitude":38.844118,
+    "longitude":-77.077344,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam236",
+    "camera_name":"S Glebe Rd @ 24th S - 153",
+    "latitude":38.848325,
+    "longitude":-77.080533,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam237",
+    "camera_name":"S George Mason Dr @ National Guard - 606",
+    "latitude":38.867139,
+    "longitude":-77.106698,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam238",
+    "camera_name":"N Glebe Rd @ Old Dominion - 167",
+    "latitude":38.90431,
+    "longitude":-77.128856,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam239",
+    "camera_name":"Old Dominion Dr @ 26th N - 168",
+    "latitude":38.903088,
+    "longitude":-77.127131,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam240",
+    "camera_name":"N Glebe Rd @ Williamsburg - 169",
+    "latitude":38.916062,
+    "longitude":-77.136596,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam241",
+    "camera_name":"N Glebe Rd @ Chesterbrook - 170",
+    "latitude":38.920602,
+    "longitude":-77.130575,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam242",
+    "camera_name":"S Walter Reed Dr @ S Dinwiddle - 173",
+    "latitude":38.842607,
+    "longitude":-77.104257,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam243",
+    "camera_name":"S Walter Reed Dr @ S Wakefield - 174",
+    "latitude":38.844821,
+    "longitude":-77.099107,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam244",
+    "camera_name":"S Walter Reed Dr @ S Arlington Mill - 175",
+    "latitude":38.845704,
+    "longitude":-77.096615,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam245",
+    "camera_name":"S Walter Reed Dr @ S 4-Mile Run - 176",
+    "latitude":38.846914,
+    "longitude":-77.095207,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam246",
+    "camera_name":"S Fillmore St @ 2nd S - 178",
+    "latitude":38.870814,
+    "longitude":-77.088344,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam247",
+    "camera_name":"S George Mason Dr @ S Dinwiddle - 179",
+    "latitude":38.84739,
+    "longitude":-77.113377,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam248",
+    "camera_name":"S George Mason Dr @ S Columbus - 180",
+    "latitude":38.852173,
+    "longitude":-77.108619,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam249",
+    "camera_name":"S George Mason Dr @ S 4-Mile Run - 181",
+    "latitude":38.852689,
+    "longitude":-77.103282,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam250",
+    "camera_name":"S George Mason Dr @ 8th S - 182",
+    "latitude":38.861719,
+    "longitude":-77.103033,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam251",
+    "camera_name":"N George Mason Dr @ N Pershing - 184",
+    "latitude":38.871705,
+    "longitude":-77.108204,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam252",
+    "camera_name":"N George Mason Dr @ N Henderson - 185",
+    "latitude":38.873308,
+    "longitude":-77.111196,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam253",
+    "camera_name":"N George Mason Dr @ 16th N - 187",
+    "latitude":38.887699,
+    "longitude":-77.128071,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam254",
+    "camera_name":"N George Mason Dr @ Arlington Hospital - 188",
+    "latitude":38.889117,
+    "longitude":-77.128728,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam255",
+    "camera_name":"RT 29 @ N Monroe - 193",
+    "latitude":38.896024,
+    "longitude":-77.104417,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam256",
+    "camera_name":"S Arlington Ridge Dr @ 23rd - 217",
+    "latitude":38.853146,
+    "longitude":-77.068397,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam257",
+    "camera_name":"S Courthouse Rd @ 2nd S - 233",
+    "latitude":38.87167,
+    "longitude":-77.081839,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam258",
+    "camera_name":"S Carlin Springs Rd @ 6th S - 234",
+    "latitude":38.860473,
+    "longitude":-77.128329,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam259",
+    "camera_name":"S Carlin Springs Rd @ 5th S - 235",
+    "latitude":38.862003,
+    "longitude":-77.129165,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam260",
+    "camera_name":"S Carlin Springs Rd @ 7th S - 317",
+    "latitude":38.856975,
+    "longitude":-77.125762,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam261",
+    "camera_name":"S Carlin Springs Rd @ 3rd S - 236",
+    "latitude":38.863687,
+    "longitude":-77.128857,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam262",
+    "camera_name":"S George Mason Dr @ 13th S - 608",
+    "latitude":38.856111,
+    "longitude":-77.100195,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam263",
+    "camera_name":"N Barton St @ 10th N - 240",
+    "latitude":38.884591,
+    "longitude":-77.087772,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam264",
+    "camera_name":"Spout Run Pkwy @ Lorcom - 247",
+    "latitude":38.898547,
+    "longitude":-77.093338,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam265",
+    "camera_name":"Lorcom Lane @ N Fillmore - 248",
+    "latitude":38.899704,
+    "longitude":-77.098451,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam266",
+    "camera_name":"Lorcom Lane @ N Military - 250",
+    "latitude":38.9023,
+    "longitude":-77.108813,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam267",
+    "camera_name":null,
+    "latitude":38.853542,
+    "longitude":-77.052079,
+    "port":"8003",
+    "status":"OFFLINE"
+  },
+  {
+    "camera_site":"cam268",
+    "camera_name":"Columbia Pike @ Wash Blvd ramp - 343",
+    "latitude":38.866204,
+    "longitude":-77.0732,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam269",
+    "camera_name":"Columbia Pike @ S Scott - 030",
+    "latitude":38.865068,
+    "longitude":-77.0773,
+    "port":"8003",
+    "status":"OFFLINE"
+  },
+  {
+    "camera_site":"cam270",
+    "camera_name":"Columbia Pike @ S Orme - 344",
+    "latitude":38.866448,
+    "longitude":-77.0719,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam271",
+    "camera_name":"Crystal Dr @ 27th S CAM-2 - 199A",
+    "latitude":38.848213,
+    "longitude":-77.051542,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam272",
+    "camera_name":"Crystal Dr @ 33rd S - 219A",
+    "latitude":38.845426,
+    "longitude":-77.052606,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam273",
+    "camera_name":"S Eads St @ 12th S - 198",
+    "latitude":38.863036,
+    "longitude":-77.054131,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam274",
+    "camera_name":"S Fern St @ 12th S - 212",
+    "latitude":38.862731,
+    "longitude":-77.056765,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam275",
+    "camera_name":"Fairfax Dr @ N Monroe - 099",
+    "latitude":38.883496,
+    "longitude":-77.103442,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam276",
+    "camera_name":"N Lynn St @19th Mid Block - 609",
+    "latitude":38.89605,
+    "longitude":-77.070808,
+    "port":"8003",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam279",
+    "camera_name":"23rd St S @ S Clark - 004B",
+    "latitude":38.853434,
+    "longitude":-77.05214,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam278.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam280",
+    "camera_name":"Wilson Blvd @ N Quincy - 060",
+    "latitude":38.879871,
+    "longitude":-77.107529,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam279.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam282",
+    "camera_name":"RT 50 @ Olin - 033",
+    "latitude":38.866408,
+    "longitude":-77.140944,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam281.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam283",
+    "camera_name":"RT 29 @ I-66 Off Ramp - 139",
+    "latitude":38.895936,
+    "longitude":-77.098311,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam282.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam284",
+    "camera_name":"RT 50 @ 10th - 342",
+    "latitude":38.884719,
+    "longitude":-77.084958,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam283.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam285",
+    "camera_name":"N Randolph St @ 9th N - 314",
+    "latitude":38.881049,
+    "longitude":-77.109144,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam284.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam286",
+    "camera_name":"Columbia Pike @ S Wayne - 230",
+    "latitude":38.863816,
+    "longitude":-77.082071,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam285.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam287",
+    "camera_name":"N Glebe Rd @ 26th N - 166",
+    "latitude":38.902563,
+    "longitude":-77.127745,
+    "port":"rtsp:\/\/158.59.15.203:8003\/live\/cam286.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam288",
+    "camera_name":"Wilson Blvd @ N Garfield - 066",
+    "latitude":38.888132,
+    "longitude":-77.094092,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam287.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam289",
+    "camera_name":"Wilson Blvd @ N Oakland - 322",
+    "latitude":38.881234,
+    "longitude":-77.104095,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam288.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam290",
+    "camera_name":"RT 50 @ Park CAM-2 - 39A",
+    "latitude":38.866651,
+    "longitude":-77.116105,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam289.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam291",
+    "camera_name":"Wilson Blvd @ Ballston Midblock - 058",
+    "latitude":38.880064,
+    "longitude":-77.112513,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam290.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam292",
+    "camera_name":"Wilson Blvd @ N Hudson - 064",
+    "latitude":38.886642,
+    "longitude":-77.096094,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam291.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam296",
+    "camera_name":"10th St N @ Fire Station 4 - 401",
+    "latitude":38.884436,
+    "longitude":-77.095602,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam295.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam298",
+    "camera_name":"RT 50 @ Fillmore Cam 2 - 044A",
+    "latitude":38.873303,
+    "longitude":-77.088855,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam297.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam299",
+    "camera_name":"Wilson Blvd @ N Glebe CAM-2 - 056A",
+    "latitude":38.879913,
+    "longitude":-77.114409,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam298.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam300",
+    "camera_name":"RT 29 @ Dorothy Hamm - 347",
+    "latitude":38.898754,
+    "longitude":-77.111659,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam299.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam301",
+    "camera_name":"Potomac Ave @ 33rd S - 219",
+    "latitude":38.845362,
+    "longitude":-77.050752,
+    "port":"rtsp:\/\/158.59.15.203:8001\/live\/cam300.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam302",
+    "camera_name":"Wilson Blvd @ Fire Station 10 - 078A",
+    "latitude":38.89453466,
+    "longitude":-77.07588228,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam301.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam303",
+    "camera_name":"RT 1 @ 20th S CAM-2 - 005A",
+    "latitude":38.856281,
+    "longitude":-77.052197,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam302.stream",
+    "status":"OFFLINE"
+  },
+  {
+    "camera_site":"cam304",
+    "camera_name":"N Glebe Rd @ 7th N - 346",
+    "latitude":38.879021,
+    "longitude":-77.112517,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam303.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam305",
+    "camera_name":"Columbia Pike @ S Frederick - 345",
+    "latitude":38.854756,
+    "longitude":-77.115215,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam304.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam307",
+    "camera_name":"N George Mason Dr @ VHC - 360",
+    "latitude":38.890732,
+    "longitude":-77.129156,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam306.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam309",
+    "camera_name":"S Eads St @ 13th S - 349",
+    "latitude":38.862114,
+    "longitude":-77.054051,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam308.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam310",
+    "camera_name":"15th St S @ S Elm - 348",
+    "latitude":38.859773,
+    "longitude":-77.055019,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam309.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam311",
+    "camera_name":"S Eads St @ 14th S - 350",
+    "latitude":38.861126,
+    "longitude":-77.053858,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam310.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":"cam312",
+    "camera_name":"15th St S @ S Grant  - 351",
+    "latitude":38.860276,
+    "longitude":-77.058355,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam311.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"Army Navy Dr @ 12th S - 208A",
+    "latitude":38.862891,
+    "longitude":-77.051987,
+    "port":"rtsp:\/\/158.59.15.203:8002\/live\/cam312.stream",
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"Wilson Blvd @ Patrick Henry - 47",
+    "latitude":38.873172,
+    "longitude":-77.143785,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"S Eads St @ 20th St S - 195",
+    "latitude":38.855974,
+    "longitude":-77.05319,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"S Hayes St - SB - North of S Hayes\/12th St",
+    "latitude":38.864237,
+    "longitude":-77.059216,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"S Hayes St - NB - South of S Hayes\/12th St",
+    "latitude":38.862008,
+    "longitude":-77.059434,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"Columbia Pike @ Taylor St - 20",
+    "latitude":38.858123,
+    "longitude":-77.103722,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"Clarendon Blvd @ S Barton CAM2 - 106",
+    "latitude":38.88979,
+    "longitude":-77.088609,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"Columbia Pike @ Four Mile Run",
+    "latitude":38.856453,
+    "longitude":-77.109975,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"N George Mason Dr @ Park Dr - 362",
+    "latitude":38.8737414,
+    "longitude":-77.11342827,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"N Glebe Rd @ N Chain Bridge CAM 2- 172",
+    "latitude":38.92925,
+    "longitude":-77.11768,
+    "port":null,
+    "status":"ONLINE"
+  },
+  {
+    "camera_site":null,
+    "camera_name":"20th St S @Bell- 356",
+    "latitude":38.85626,
+    "longitude":-77.05113,
+    "port":null,
+    "status":"ONLINE"
+  }
+]
