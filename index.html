@@ -176,6 +176,10 @@
         <button id="resetBtn" class="secondary">Reset</button>
       </div>
 
+      <div class="search-row">
+        <button id="toggleTrafficBtn">Hide Traffic</button>
+      </div>
+
       <div id="resultCount" class="result-count">Loading cameras...</div>
 
       <div class="legend">
@@ -199,6 +203,8 @@
       let infoWindow;
       let allMarkers = [];
       let clusterer = null;
+      let trafficLayer = null;
+      let trafficVisible = true;
 
       function escapeHtml(value) {
         return String(value ?? "")
@@ -219,11 +225,10 @@
       function getMarkerIcon(status) {
         const normalized = (status || "").toUpperCase().trim();
 
-        let color = "80868b"; // gray
+        let color = "80868b";
         if (normalized === "ONLINE") color = "1e8e3e";
         if (normalized === "OFFLINE") color = "d93025";
 
-        // SVG circle icon via data URI
         const svg = `
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
             <circle cx="9" cy="9" r="7" fill="#${color}" stroke="white" stroke-width="2"/>
@@ -239,7 +244,6 @@
       function buildInfoContent(camera) {
         const status = (camera.status || "UNKNOWN").toUpperCase().trim();
         const statusClass = getStatusClass(status);
-
         const mapsLink = `https://www.google.com/maps?q=${camera.latitude},${camera.longitude}`;
 
         return `
@@ -279,7 +283,6 @@
         }
 
         allMarkers.forEach(marker => marker.setMap(null));
-
         markersToShow.forEach(marker => marker.setMap(map));
 
         clusterer = new markerClusterer.MarkerClusterer({
@@ -328,6 +331,9 @@
           scaleControl: true,
         });
 
+        trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
+
         infoWindow = new google.maps.InfoWindow();
 
         const response = await fetch("./traffic_cameras_clean.json");
@@ -371,6 +377,18 @@
         document.getElementById("cameraSearch").addEventListener("keydown", (e) => {
           if (e.key === "Enter") {
             applySearch();
+          }
+        });
+
+        document.getElementById("toggleTrafficBtn").addEventListener("click", () => {
+          trafficVisible = !trafficVisible;
+
+          if (trafficVisible) {
+            trafficLayer.setMap(map);
+            document.getElementById("toggleTrafficBtn").textContent = "Hide Traffic";
+          } else {
+            trafficLayer.setMap(null);
+            document.getElementById("toggleTrafficBtn").textContent = "Show Traffic";
           }
         });
       }
