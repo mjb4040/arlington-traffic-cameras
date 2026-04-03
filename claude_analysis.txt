@@ -1,0 +1,77 @@
+
+
+# Diff Analysis Report — 2026-04-03T13:30:28Z
+
+---
+
+## 1. SUMMARY
+
+This diff reflects a moderately large update: **22 cameras added, 5 removed, and 26 changed** (moving from 305 → 311 total cameras). However, the bulk of the changes are **not routine updates** — they represent a **systematic one-position shift in camera-site-to-camera-name mappings** across a large block of consecutively numbered camera sites (roughly cam279–cam312). In effect, each camera site in that range has been reassigned the name, coordinates, and metadata of its neighboring site. This is characteristic of an **off-by-one indexing error** in the upstream data source, not a genuine physical change. Only 2 of the 26 "changed" records are simple, legitimate status flips.
+
+The 22 additions include cameras that suspiciously duplicate names/locations of cameras that were "shifted out" of their slots, plus some genuinely new deployments. The 5 removals appear to be casualties of the same shifting — their data was pushed out of the dataset entirely.
+
+**Significance: HIGH.** If applied as-is, the app would display the wrong camera name and location for ~20+ cameras, breaking the user experience and producing misleading map pins.
+
+---
+
+## 2. ANOMALIES
+
+### 🔴 Critical: Systematic Camera-Site / Camera-Name Shift (Off-by-One Error)
+
+The most glaring pattern is that approximately **20 camera sites in the cam279–cam312 range have each received the name, latitude, and longitude of the *next* camera site**. This is a classic off-by-one data alignment problem. Evidence:
+
+| Local (current) | Current Name | Fresh (new) Name | Analysis |
+|---|---|---|---|
+| cam279 | 23rd St S @ S Clark - 004B | Wilson Blvd @ N Quincy - 060 | cam280's old name |
+| cam282 | RT 50 @ Olin - 033 | RT 29 @ I-66 Off Ramp - 139 | cam283's old name |
+| cam283 | RT 29 @ I-66 Off Ramp - 139 | RT 50 @ 10th - 342 | cam284's old name |
+| cam284 | RT 50 @ 10th - 342 | N Randolph St @ 9th N - 314 | cam285's old name |
+| cam285 | N Randolph St @ 9th N - 314 | Columbia Pike @ S Wayne - 230 | cam286's old name |
+| cam286 | Columbia Pike @ S Wayne - 230 | N Glebe Rd @ 26th N - 166 | cam287's old name |
+| cam287 | N Glebe Rd @ 26th N - 166 | Wilson Blvd @ N Garfield - 066 | cam288's old name |
+| cam288 | Wilson Blvd @ N Garfield - 066 | Wilson Blvd @ N Oakland - 322 | cam289's old name |
+| cam289 | Wilson Blvd @ N Oakland - 322 | RT 50 @ Park CAM-2 - 39A | cam290's old name |
+| cam290 | RT 50 @ Park CAM-2 - 39A | Wilson Blvd @ Ballston Midblock - 058 | cam291's old name |
+| cam291 | Wilson Blvd @ Ballston Midblock - 058 | Wilson Blvd @ N Hudson - 064 | cam292's old name |
+| cam298 | RT 50 @ Fillmore Cam 2 - 044A | Wilson Blvd @ N Glebe CAM-2 - 056A | cam299's old name |
+| cam299 | Wilson Blvd @ N Glebe CAM-2 - 056A | RT 29 @ Dorothy Hamm - 347 | cam300's old name |
+| cam300 | RT 29 @ Dorothy Hamm - 347 | Potomac Ave @ 33rd S - 219 | cam301's old name |
+| cam301 | Potomac Ave @ 33rd S - 219 | Wilson Blvd @ Fire Station 10 - 078A | cam302's old name |
+| cam302 | Wilson Blvd @ Fire Station 10 - 078A | RT 1 @ 20th S CAM-2 - 005A | cam303's old name |
+| cam303 | RT 1 @ 20th S CAM-2 - 005A | N Glebe Rd @ 7th N - 346 | cam304's old name |
+| cam304 | N Glebe Rd @ 7th N - 346 | Columbia Pike @ S Frederick - 345 | cam305's old name (removed) |
+| cam307 | N George Mason Dr @ VHC - 360 | N Carlin Springs Rd @ RT 50 CAM-2 - 036A | shifted |
+| cam309 | S Eads St @ 13th S - 349 | 15th St S @ S Elm - 348 | cam310's old name |
+| cam310 | 15th St S @ S Elm - 348 | S Eads St @ 14th S - 350 | cam311's old name |
+| cam311 | S Eads St @ 14th S - 350 | 15th St S @ S Grant - 351 | cam312's old name |
+| cam312 | 15th St S @ S Grant - 351 | Army Navy Dr @ 12th S - 208A | next site's old name |
+
+**Every single one of these shows the name shifting by exactly +1 camera_site.** This is not 20+ cameras physically relocating simultaneously — it is a data pipeline alignment error.
+
+### 🔴 Port Format Change Across All Shifted Records
+
+All shifted cameras also show a port change from a full RTSP URL (e.g., `rtsp://158.59.15.203:8003/live/cam282.stream`) to just a port number (`8003`). This is a **format regression** — the local dataset stores complete RTSP URLs while the fresh data provides only port numbers. Notably, the old port URLs reference the *previous* cam site number (e.g., cam282 stores `.../cam281.stream`), which is consistent with the off-by-one pattern in the existing data. This needs careful investigation to understand whether the URL construction logic in the app can handle bare port numbers.
+
+### 🟡 Positive Longitude (Invalid Coordinate)
+
+- **cam294** (`N Randolph St @ Parking Garage - 319`): longitude is **+77.109274** (should be **-77.109274**). This is in the *added* set. A positive longitude of ~77° would place the camera in Central Asia, not Arlington, VA. This is a data entry error.
+
+### 🟡 `#N/A` Camera Name
+
+- **cam267**: camera_name changing from `null` to `#N/A`. This is clearly a spreadsheet artifact leaking into the data. Neither value is usable.
+
+### 🟡 Inconsistent camera_site Casing
+
+Several added cameras use inconsistent casing in `camera_site`:
+- `Cam326` (N Glebe Rd @ N Chain Bridge CAM 3)
+- `Cam328` (Columbia Pike @ S Rolfe St)
+- `Cam329` (RT 50 @ George Mason Cam2)
+- `Cam327` (20th St S @Bell)
+
+The rest of the dataset uses lowercase `cam###`. This could cause lookup/matching issues in the app.
+
+### 🟡 Added Cameras That Are "Displaced" Originals
+
+Several of the 22 "added" cameras carry names and coordinates identical to cameras that were shifted out of their original sites. For example:
+- **Added cam306** "N George Mason Dr @ VHC - 360" — this was the *old* identity of **cam307**, which is now being reassigned to "N Carlin Springs Rd @ RT 50 CAM-2 - 036A"
+- **Added cam281** "RT 50 @ Olin - 033"
