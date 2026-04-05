@@ -1,0 +1,59 @@
+name: Weekly Camera Data Agent
+
+# Fundamentals:
+# - "on" defines what triggers this workflow
+# - "schedule" uses cron syntax: minute hour day month weekday
+# - "0 2 * * 1" = minute 0, hour 2, any day, any month, Monday (1)
+# - workflow_dispatch lets you trigger it manually from GitHub's UI
+
+on:
+  schedule:
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+
+    # Fundamentals:
+    # - permissions: contents=write lets the workflow push a branch
+    # - permissions: pull-requests=write lets it open a PR
+    # These are the minimum permissions needed — least privilege principle
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Fundamentals:
+      # - Python must be installed on the runner before we can use it
+      # - GitHub Actions runners are fresh Ubuntu VMs — nothing is pre-installed
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      # Fundamentals:
+      # - Each script reads from files the previous script wrote
+      # - This is a pipeline pattern: output of one step = input of next
+      # - Secrets are injected as environment variables — never hardcoded
+      - name: Step 2 — Fetch and diff camera data
+        run: python diff_cameras.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Step 3 — Claude reasoning layer
+        run: python analyze_diff.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Step 4 — Open GitHub PR with safe changes
+        run: python open_pr.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
