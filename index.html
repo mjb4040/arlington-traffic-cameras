@@ -2,143 +2,308 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Arlington Traffic Cameras</title>
+    <title>Arlington County · Traffic & Mobility</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <style>
-      html, body, #map {
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html, body {
         height: 100%;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #0f1923;
       }
 
-      #map { position: relative; }
-
-      .map-panel {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        z-index: 5;
-        width: 320px;
-        background: rgba(255, 255, 255, 0.96);
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-        padding: 14px;
-      }
-
-      .map-panel h1 {
-        margin: 0 0 10px 0;
-        font-size: 18px;
-      }
-
-      .map-panel p {
-        margin: 0 0 10px 0;
-        font-size: 13px;
-        color: #444;
-      }
-
-      .search-row {
+      #app {
         display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      /* ── Top bar ─────────────────────────────────────────── */
+      #topbar {
+        flex-shrink: 0;
+        background: #1b2a3b;
+        border-bottom: 1px solid #243547;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        gap: 12px;
+        z-index: 10;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
         gap: 8px;
-        margin-bottom: 10px;
-        flex-wrap: wrap;
+        flex-shrink: 0;
       }
 
-      .search-row input {
-        flex: 1;
-        padding: 10px 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
+      .brand-dot {
+        width: 8px;
+        height: 8px;
+        background: #4a9eff;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .brand-name {
+        color: #ffffff;
         font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
       }
 
-      .search-row button {
-        padding: 8px 12px;
-        border: none;
-        border-radius: 8px;
-        background: #1a73e8;
-        color: white;
-        cursor: pointer;
+      .brand-sub {
+        color: #5a7a9a;
         font-size: 13px;
+        font-weight: 400;
+        white-space: nowrap;
       }
 
-      .search-row button.secondary {
-        background: #5f6368;
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #243547;
+        flex-shrink: 0;
       }
 
+      /* ── Search ──────────────────────────────────────────── */
+      .search-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #243547;
+        border: 1px solid #2e4560;
+        border-radius: 6px;
+        padding: 0 10px;
+        flex: 1;
+        max-width: 320px;
+      }
+
+      .search-icon {
+        color: #5a7a9a;
+        font-size: 13px;
+        flex-shrink: 0;
+      }
+
+      #cameraSearch {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #c8d8e8;
+        font-size: 13px;
+        font-family: inherit;
+        width: 100%;
+        height: 34px;
+      }
+
+      #cameraSearch::placeholder { color: #3a5a7a; }
+
+      .search-clear {
+        background: none;
+        border: none;
+        color: #3a5a7a;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 2px;
+        display: none;
+      }
+
+      /* ── Toggle buttons ──────────────────────────────────── */
+      .toggles {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+      }
+
+      .toggle-btn {
+        background: #243547;
+        border: 1px solid #2e4560;
+        color: #5a7a9a;
+        font-size: 12px;
+        font-family: inherit;
+        padding: 5px 11px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.15s;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .toggle-btn.active {
+        background: #1e3a5a;
+        border-color: #4a9eff;
+        color: #c8d8e8;
+      }
+
+      .toggle-btn.active-bike {
+        background: #1a3a2a;
+        border-color: #3aaa6a;
+        color: #c8d8e8;
+      }
+
+      /* ── Legend ──────────────────────────────────────────── */
       .legend {
         display: flex;
+        align-items: center;
         gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-        font-size: 12px;
-        color: #333;
+        flex-shrink: 0;
       }
 
       .legend-item {
         display: flex;
         align-items: center;
         gap: 4px;
+        color: #5a7a9a;
+        font-size: 11px;
+        white-space: nowrap;
       }
 
-      .result-count {
-        margin-top: 8px;
-        font-size: 13px;
-        font-weight: 600;
+      /* ── Map ─────────────────────────────────────────────── */
+      #map { flex: 1; }
+
+      /* ── Footer ──────────────────────────────────────────── */
+      #footer {
+        flex-shrink: 0;
+        background: #1b2a3b;
+        border-top: 1px solid #243547;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
       }
 
-      /* ── Camera info window ──────────────────────────────── */
+      .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .footer-stat {
+        color: #3a5a7a;
+        font-size: 11px;
+      }
+
+      .footer-stat span {
+        color: #5a7a9a;
+        font-weight: 500;
+      }
+
+      .footer-attr {
+        color: #2a3a4a;
+        font-size: 11px;
+      }
+
+      /* ── Camera info popup ───────────────────────────────── */
       .info-window {
-        min-width: 280px;
-        max-width: 320px;
-        font-family: Arial, sans-serif;
+        min-width: 260px;
+        max-width: 300px;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #1b2a3b;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .info-header {
+        background: #1e3a5a;
+        padding: 10px 12px;
+        border-bottom: 1px solid #243547;
       }
 
       .info-title {
-        margin: 0 0 8px 0;
-        font-size: 15px;
-        font-weight: 700;
-        color: #202124;
+        font-size: 13px;
+        font-weight: 600;
+        color: #e8f0f8;
+        margin-bottom: 4px;
+        line-height: 1.3;
+      }
+
+      .info-site {
+        font-size: 11px;
+        color: #5a7a9a;
+      }
+
+      .info-body {
+        padding: 10px 12px;
       }
 
       .info-row {
-        margin: 4px 0;
-        font-size: 13px;
-        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 12px;
       }
+
+      .info-label { color: #5a7a9a; }
+      .info-value { color: #c8d8e8; font-weight: 500; }
 
       .status-badge {
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-        color: white;
-      }
-
-      .status-online  { background: #1e8e3e; }
-      .status-offline { background: #d93025; }
-      .status-unknown { background: #80868b; }
-
-      .info-actions {
-        margin-top: 10px;
-        display: flex;
-        gap: 12px;
+        display: inline-flex;
         align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .info-actions a {
-        color: #1a73e8;
-        text-decoration: none;
-        font-size: 13px;
+        gap: 4px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 11px;
         font-weight: 600;
       }
 
-      /* ── Live feed player ────────────────────────────────── */
-      .live-feed-container {
+      .status-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+      }
+
+      .badge-online  { background: #1a3a2a; color: #5add8a; }
+      .badge-online .status-dot  { background: #5add8a; }
+      .badge-offline { background: #3a1a1a; color: #ff6b6b; }
+      .badge-offline .status-dot { background: #ff6b6b; }
+      .badge-unknown { background: #2a2a2a; color: #888888; }
+      .badge-unknown .status-dot { background: #888888; }
+
+      .info-actions {
+        display: flex;
+        gap: 8px;
         margin-top: 10px;
-        border-radius: 8px;
+      }
+
+      .info-btn {
+        flex: 1;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        font-family: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+      }
+
+      .btn-primary {
+        background: #4a9eff;
+        color: #ffffff;
+      }
+
+      .btn-secondary {
+        background: #243547;
+        color: #7a9ab8;
+        border: 1px solid #2e4560;
+      }
+
+      /* ── Live feed ───────────────────────────────────────── */
+      .live-feed-container {
+        margin-top: 8px;
+        border-radius: 5px;
         overflow: hidden;
         background: #000;
         position: relative;
@@ -147,173 +312,187 @@
       .live-feed-container video {
         width: 100%;
         display: block;
-        border-radius: 8px;
       }
 
       .live-badge {
         position: absolute;
-        top: 6px;
-        left: 6px;
-        background: #d93025;
+        top: 5px;
+        left: 5px;
+        background: #cc2222;
         color: white;
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 700;
-        padding: 2px 6px;
-        border-radius: 4px;
+        padding: 2px 5px;
+        border-radius: 3px;
         letter-spacing: 0.5px;
         pointer-events: none;
       }
 
       .feed-error {
         padding: 10px;
-        font-size: 12px;
-        color: #aaa;
+        font-size: 11px;
+        color: #3a5a7a;
         text-align: center;
+        font-style: italic;
       }
 
-      .load-feed-btn {
-        margin-top: 8px;
-        padding: 7px 12px;
-        background: #1a73e8;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        width: 100%;
-      }
-
-      .load-feed-btn:hover { background: #1558b0; }
-
-      /* ── Bikeshare info window ────────────────────────────── */
+      /* ── Bikeshare popup ─────────────────────────────────── */
       .bike-info-window {
         min-width: 220px;
-        font-family: Arial, sans-serif;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #1b2a3b;
+        border-radius: 8px;
+        overflow: hidden;
       }
 
-      .bike-info-title {
-        margin: 0 0 8px 0;
-        font-size: 15px;
-        font-weight: 700;
-        color: #202124;
+      .bike-header {
+        background: #1a3a2a;
+        padding: 10px 12px;
+        border-bottom: 1px solid #243547;
       }
 
-      .bike-availability {
+      .bike-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #e8f0f8;
+      }
+
+      .bike-body { padding: 10px 12px; }
+
+      .bike-stats {
         display: flex;
-        gap: 10px;
-        margin: 10px 0;
+        gap: 8px;
+        margin-bottom: 8px;
       }
 
       .bike-stat {
         flex: 1;
         text-align: center;
         padding: 8px;
-        border-radius: 8px;
-        background: #f1f3f4;
+        border-radius: 6px;
       }
 
-      .bike-stat-number {
+      .bike-stat.bikes { background: #1a3a2a; }
+      .bike-stat.docks { background: #1a2a3a; }
+
+      .bike-stat-num {
         font-size: 22px;
-        font-weight: 700;
-        color: #202124;
+        font-weight: 600;
+        line-height: 1;
+        margin-bottom: 3px;
       }
+
+      .bike-stat.bikes .bike-stat-num { color: #5add8a; }
+      .bike-stat.docks .bike-stat-num { color: #4a9eff; }
 
       .bike-stat-label {
-        font-size: 11px;
-        color: #666;
-        margin-top: 2px;
+        font-size: 10px;
+        color: #3a5a7a;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
-      .bike-stat.bikes { background: #e8f5e9; }
-      .bike-stat.bikes .bike-stat-number { color: #1e8e3e; }
-      .bike-stat.docks { background: #e3f2fd; }
-      .bike-stat.docks .bike-stat-number { color: #1a73e8; }
+      .bike-meta { font-size: 11px; color: #3a5a7a; }
 
-      .bike-capacity { font-size: 12px; color: #666; margin-top: 6px; }
-      .bike-last-updated { font-size: 11px; color: #999; margin-top: 6px; }
+      /* Override Google Maps info window chrome */
+      .gm-style .gm-style-iw-c {
+        background: #1b2a3b !important;
+        border-radius: 8px !important;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+        padding: 0 !important;
+      }
+
+      .gm-style .gm-style-iw-d {
+        overflow: hidden !important;
+        max-height: none !important;
+      }
+
+      .gm-style .gm-style-iw-t::after {
+        background: #1b2a3b !important;
+      }
+
+      .gm-style-iw-tc::after {
+        background: #1b2a3b !important;
+      }
+
+      button.gm-ui-hover-effect {
+        filter: invert(1) !important;
+        opacity: 0.5 !important;
+      }
     </style>
   </head>
   <body>
-    <div id="map"></div>
+    <div id="app">
 
-    <div class="map-panel">
-      <h1>Arlington Traffic Cameras</h1>
-      <p>Search by camera name, site, status, or corridor.</p>
+      <div id="topbar">
+        <div class="brand">
+          <div class="brand-dot"></div>
+          <span class="brand-name">Arlington County</span>
+          <span class="brand-sub">Traffic & Mobility</span>
+        </div>
 
-      <div class="search-row">
-        <input id="cameraSearch" type="text" placeholder="Search cameras..." />
-        <button id="searchBtn">Search</button>
-        <button id="resetBtn" class="secondary">Reset</button>
+        <div class="divider"></div>
+
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input id="cameraSearch" type="text" placeholder="Search cameras, corridors, status..." />
+          <button class="search-clear" id="clearBtn">✕</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="toggles">
+          <button class="toggle-btn active" id="toggleCameraBtn">🚦 Cameras</button>
+          <button class="toggle-btn active" id="toggleTrafficBtn">Traffic layer</button>
+          <button class="toggle-btn" id="toggleBikeBtn">🚲 Bikeshare</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="legend">
+          <div class="legend-item">🚦 Online</div>
+          <div class="legend-item">🔴 Offline</div>
+          <div class="legend-item">⚫ Unknown</div>
+          <div class="legend-item">🚲 Bikes</div>
+          <div class="legend-item">🔒 No bikes</div>
+        </div>
       </div>
 
-      <div class="search-row">
-        <button id="toggleCameraBtn">Hide Cameras</button>
-        <button id="toggleTrafficBtn" class="secondary">Hide Traffic</button>
-        <button id="toggleBikeBtn" class="secondary">Show Bikeshare</button>
+      <div id="map"></div>
+
+      <div id="footer">
+        <div class="footer-left">
+          <div class="footer-stat" id="cameraCount">Loading...</div>
+          <div class="footer-stat" id="bikeCount" style="display:none;">🚲 <span id="bikeCountNum">—</span> stations</div>
+        </div>
+        <div class="footer-attr">
+          Arlington Open Data · Capital Bikeshare GBFS · Built by Michael Blackwell
+        </div>
       </div>
 
-      <div id="resultCount" class="result-count">Loading cameras...</div>
-
-      <div class="legend">
-        <div class="legend-item">🚦 <span>Online</span></div>
-        <div class="legend-item">🔴 <span>Offline</span></div>
-        <div class="legend-item">⚫ <span>Unknown</span></div>
-        <div class="legend-item">🚲 <span>Bikes available</span></div>
-        <div class="legend-item">🔒 <span>No bikes</span></div>
-      </div>
     </div>
 
     <script>
-      let map;
-      let infoWindow;
-      let allMarkers = [];
-      let clusterer = null;
-      let trafficLayer = null;
-      let trafficVisible = true;
-      let cameraVisible = true;
-
-      // ── Bikeshare state ────────────────────────────────────
-      let bikeMarkers = [];
-      let bikeVisible = false;
-      let bikeRefreshInterval = null;
-      let bikeStatusIndex = {};
+      let map, infoWindow;
+      let allMarkers = [], clusterer = null;
+      let trafficLayer = null, trafficVisible = true, cameraVisible = true;
+      let bikeMarkers = [], bikeVisible = false;
+      let bikeRefreshInterval = null, bikeStatusIndex = {};
       let arlingtonStationIds = new Set();
 
-      const GBFS_STATION_INFO   = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_information.json";
-      const GBFS_STATION_STATUS = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_status.json";
+      const GBFS_INFO   = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_information.json";
+      const GBFS_STATUS = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_status.json";
+      const ARLINGTON_GIS = "https://arlgis.arlingtonva.us/arcgis/rest/services/Open_Data/od_Bike_Capital_Bikeshare_Stations_Points/FeatureServer/0/query?where=1%3D1&outFields=StationID&f=json";
 
-      // Arlington County GIS — official list of Arlington bikeshare stations
-      // Using the county's own dataset as a whitelist is more accurate than
-      // a bounding box because Arlington's borders are irregular
-      const ARLINGTON_GIS_URL = "https://arlgis.arlingtonva.us/arcgis/rest/services/Open_Data/od_Bike_Capital_Bikeshare_Stations_Points/FeatureServer/0/query?where=1%3D1&outFields=StationID&f=json";
-
-      // ── Utilities ──────────────────────────────────────────
-
-      function escapeHtml(value) {
-        return String(value ?? "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
+      function escapeHtml(v) {
+        return String(v ?? "")
+          .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+          .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
       }
-
-      function getStatusClass(status) {
-        const s = (status || "").toUpperCase().trim();
-        if (s === "ONLINE")  return "status-online";
-        if (s === "OFFLINE") return "status-offline";
-        return "status-unknown";
-      }
-
-      // ── Emoji marker builder ───────────────────────────────
-      // Google Maps needs a URL for marker icons. We generate one on the
-      // fly by encoding an SVG with the emoji as a data URL — no external
-      // image files needed. One function handles all marker types.
 
       function makeEmojiIcon(emoji) {
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
-          <text y="22" font-size="22" font-family="Apple Color Emoji, Segoe UI Emoji, sans-serif">${emoji}</text>
+          <text y="22" font-size="22" font-family="Apple Color Emoji,Segoe UI Emoji,sans-serif">${emoji}</text>
         </svg>`;
         return {
           url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg),
@@ -329,208 +508,161 @@
         return makeEmojiIcon("⚫");
       }
 
-      function getBikeMarkerIcon(bikesAvailable) {
-        return makeEmojiIcon(bikesAvailable > 0 ? "🚲" : "🔒");
+      function getBikeIcon(bikes) {
+        return makeEmojiIcon(bikes > 0 ? "🚲" : "🔒");
       }
 
-      // ── Live stream URL builder ────────────────────────────
+      function getBadgeClass(status) {
+        const s = (status || "").toUpperCase().trim();
+        if (s === "ONLINE")  return "badge-online";
+        if (s === "OFFLINE") return "badge-offline";
+        return "badge-unknown";
+      }
 
       function buildStreamUrl(camera) {
-        let basePort = parseInt(camera.port);
-        if (!basePort || isNaN(basePort)) return null;
+        let port = parseInt(camera.port);
+        if (!port || isNaN(port)) return null;
         if (camera.port && camera.port.toString().startsWith("rtsp")) {
-          const match = camera.port.match(/:(\d+)\//);
-          if (match) basePort = parseInt(match[1]);
+          const m = camera.port.match(/:(\d+)\//);
+          if (m) port = parseInt(m[1]);
         }
-        const hlsPort = basePort + 10;
-        const site = (camera.camera_site || "").toLowerCase();
-        return `https://itsvideo.arlingtonva.us:${hlsPort}/live/${site}.stream/playlist.m3u8`;
+        return `https://itsvideo.arlingtonva.us:${port + 10}/live/${(camera.camera_site||"").toLowerCase()}.stream/playlist.m3u8`;
       }
 
-      // ── Camera info window ─────────────────────────────────
-
-      function buildInfoContent(camera) {
-        const status = (camera.status || "UNKNOWN").toUpperCase().trim();
-        const statusClass = getStatusClass(status);
-        const mapsLink = `https://www.google.com/maps?q=${camera.latitude},${camera.longitude}`;
+      function buildCameraPopup(c) {
+        const status = (c.status || "UNKNOWN").toUpperCase().trim();
+        const badgeClass = getBadgeClass(status);
+        const mapsLink = `https://www.google.com/maps?q=${c.latitude},${c.longitude}`;
         const isOnline = status === "ONLINE";
-        const streamUrl = buildStreamUrl(camera);
+        const streamUrl = buildStreamUrl(c);
         const canStream = isOnline && streamUrl;
-        const videoId = `video-${escapeHtml(camera.camera_site || Math.random())}`;
+        const vid = `vid-${escapeHtml(c.camera_site || Math.random())}`;
 
-        return `
-          <div class="info-window">
-            <div class="info-title">${escapeHtml(camera.camera_name || "Unknown camera")}</div>
-            <div class="info-row"><strong>Site:</strong> ${escapeHtml(camera.camera_site || "N/A")}</div>
+        return `<div class="info-window">
+          <div class="info-header">
+            <div class="info-title">${escapeHtml(c.camera_name || "Unknown camera")}</div>
+            <div class="info-site">${escapeHtml(c.camera_site || "")}</div>
+          </div>
+          <div class="info-body">
             <div class="info-row">
-              <strong>Status:</strong>
-              <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
+              <span class="info-label">Status</span>
+              <span class="status-badge ${badgeClass}">
+                <span class="status-dot"></span>${escapeHtml(status)}
+              </span>
             </div>
-            <div class="info-row"><strong>Coordinates:</strong> ${camera.latitude}, ${camera.longitude}</div>
+            <div class="info-row">
+              <span class="info-label">Coordinates</span>
+              <span class="info-value">${c.latitude.toFixed(5)}, ${c.longitude.toFixed(5)}</span>
+            </div>
             ${canStream ? `
-              <button class="load-feed-btn" onclick="loadFeed('${videoId}', '${streamUrl}', this)">
-                ▶ Watch Live Feed
-              </button>
-              <div class="live-feed-container" id="container-${videoId}" style="display:none;">
-                <video id="${videoId}" controls muted playsinline></video>
+              <button class="info-btn btn-primary" onclick="loadFeed('${vid}','${streamUrl}',this)" style="margin-top:8px;width:100%;">▶ Watch live feed</button>
+              <div class="live-feed-container" id="c-${vid}" style="display:none;">
+                <video id="${vid}" controls muted playsinline></video>
                 <span class="live-badge">LIVE</span>
               </div>
-            ` : `
-              <div class="feed-error">
-                ${isOnline ? "Live feed unavailable" : "Camera is offline — no live feed"}
-              </div>
-            `}
+            ` : `<div class="feed-error">${isOnline ? "Live feed unavailable" : "Camera offline"}</div>`}
             <div class="info-actions">
-              <a href="${mapsLink}" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+              <a class="info-btn btn-secondary" href="${mapsLink}" target="_blank" rel="noopener">Open in Maps</a>
             </div>
-          </div>`;
+          </div>
+        </div>`;
       }
 
-      // ── Live feed loader ───────────────────────────────────
-
-      function loadFeed(videoId, streamUrl, btn) {
-        const container = document.getElementById(`container-${videoId}`);
-        const video = document.getElementById(videoId);
+      function loadFeed(vid, url, btn) {
+        const container = document.getElementById(`c-${vid}`);
+        const video = document.getElementById(vid);
         btn.style.display = "none";
         container.style.display = "block";
-
         if (typeof Hls === "undefined") {
-          container.innerHTML = '<div class="feed-error">Stream player not loaded. Please refresh.</div>';
-          return;
+          container.innerHTML = '<div class="feed-error">Player not loaded.</div>'; return;
         }
-
         if (Hls.isSupported()) {
-          const hls = new Hls({ maxBufferLength: 10, maxMaxBufferLength: 20 });
-          hls.loadSource(streamUrl);
+          const hls = new Hls({ maxBufferLength: 10 });
+          hls.loadSource(url);
           hls.attachMedia(video);
           hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-          hls.on(Hls.Events.ERROR, (event, data) => {
-            if (data.fatal) {
-              container.innerHTML = '<div class="feed-error">Stream unavailable — camera may be offline or restricted.</div>';
-            }
+          hls.on(Hls.Events.ERROR, (e, d) => {
+            if (d.fatal) container.innerHTML = '<div class="feed-error">Stream unavailable.</div>';
           });
         } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-          video.src = streamUrl;
-          video.play();
+          video.src = url; video.play();
         } else {
-          container.innerHTML = '<div class="feed-error">Your browser does not support live streaming.</div>';
+          container.innerHTML = '<div class="feed-error">Browser does not support live streaming.</div>';
         }
       }
 
-      // ── Bikeshare ──────────────────────────────────────────
-
-      function buildBikeInfoContent(station, status) {
+      function buildBikePopup(station, status) {
         const bikes = status ? status.num_bikes_available : "?";
         const docks = status ? status.num_docks_available : "?";
-        const updated = status
-          ? new Date(status.last_reported * 1000).toLocaleTimeString()
-          : "unknown";
-
-        return `
-          <div class="bike-info-window">
-            <div class="bike-info-title">🚲 ${escapeHtml(station.name)}</div>
-            <div class="bike-availability">
+        const updated = status ? new Date(status.last_reported * 1000).toLocaleTimeString() : "—";
+        return `<div class="bike-info-window">
+          <div class="bike-header">
+            <div class="bike-title">🚲 ${escapeHtml(station.name)}</div>
+          </div>
+          <div class="bike-body">
+            <div class="bike-stats">
               <div class="bike-stat bikes">
-                <div class="bike-stat-number">${bikes}</div>
+                <div class="bike-stat-num">${bikes}</div>
                 <div class="bike-stat-label">Bikes</div>
               </div>
               <div class="bike-stat docks">
-                <div class="bike-stat-number">${docks}</div>
+                <div class="bike-stat-num">${docks}</div>
                 <div class="bike-stat-label">Docks</div>
               </div>
             </div>
-            <div class="bike-capacity">Station capacity: ${station.capacity} docks</div>
-            <div class="bike-last-updated">Updated: ${updated}</div>
-          </div>`;
+            <div class="bike-meta">Capacity: ${station.capacity} · Updated: ${updated}</div>
+          </div>
+        </div>`;
       }
 
       async function fetchBikeStatus() {
         try {
-          const res = await fetch(GBFS_STATION_STATUS);
-          const json = await res.json();
+          const r = await fetch(GBFS_STATUS);
+          const j = await r.json();
           bikeStatusIndex = {};
-          for (const s of json.data.stations) {
-            bikeStatusIndex[s.station_id] = s;
+          for (const s of j.data.stations) bikeStatusIndex[s.station_id] = s;
+          for (const m of bikeMarkers) {
+            const st = bikeStatusIndex[m.stationId];
+            m.setIcon(getBikeIcon(st ? st.num_bikes_available : 0));
           }
-          for (const marker of bikeMarkers) {
-            const status = bikeStatusIndex[marker.stationId];
-            const bikes = status ? status.num_bikes_available : 0;
-            marker.setIcon(getBikeMarkerIcon(bikes));
-          }
-        } catch (e) {
-          console.warn("Bikeshare status refresh failed:", e);
-        }
+        } catch(e) { console.warn("Bike refresh failed", e); }
       }
 
       async function loadBikeMarkers() {
         try {
-          // Fetch all three sources in parallel using Promise.all
-          const [gisRes, infoRes, statusRes] = await Promise.all([
-            fetch(ARLINGTON_GIS_URL),
-            fetch(GBFS_STATION_INFO),
-            fetch(GBFS_STATION_STATUS)
+          const [gisR, infoR, statR] = await Promise.all([
+            fetch(ARLINGTON_GIS), fetch(GBFS_INFO), fetch(GBFS_STATUS)
           ]);
+          const gisJ  = await gisR.json();
+          const infoJ = await infoR.json();
+          const statJ = await statR.json();
 
-          const gisJson    = await gisRes.json();
-          const infoJson   = await infoRes.json();
-          const statusJson = await statusRes.json();
-
-          // Build Arlington whitelist from county GIS data
-          arlingtonStationIds = new Set(
-            gisJson.features.map(f => String(f.attributes.StationID))
-          );
-
-          // Build live status index
+          arlingtonStationIds = new Set(gisJ.features.map(f => String(f.attributes.StationID)));
           bikeStatusIndex = {};
-          for (const s of statusJson.data.stations) {
-            bikeStatusIndex[s.station_id] = s;
-          }
+          for (const s of statJ.data.stations) bikeStatusIndex[s.station_id] = s;
 
-          // Build markers — only stations in Arlington's official list
           bikeMarkers = [];
-          for (const station of infoJson.data.stations) {
-            const { lat, lon, station_id, short_name } = station;
-
-            // short_name is the numeric ID that matches Arlington's StationID
-            if (!arlingtonStationIds.has(String(short_name))) continue;
-
-            const status = bikeStatusIndex[station_id];
+          for (const st of infoJ.data.stations) {
+            if (!arlingtonStationIds.has(String(st.short_name))) continue;
+            const status = bikeStatusIndex[st.station_id];
             const bikes  = status ? status.num_bikes_available : 0;
-
             const marker = new google.maps.Marker({
-              position: { lat, lng: lon },
-              title: station.name,
-              icon: getBikeMarkerIcon(bikes),
+              position: { lat: st.lat, lng: st.lon },
+              title: st.name,
+              icon: getBikeIcon(bikes),
               map: null,
             });
-
-            marker.stationId   = station_id;
-            marker.stationData = station;
-
+            marker.stationId = st.station_id;
             marker.addListener("click", () => {
-              const liveStatus = bikeStatusIndex[station_id];
-              infoWindow.setContent(buildBikeInfoContent(station, liveStatus));
+              infoWindow.setContent(buildBikePopup(st, bikeStatusIndex[st.station_id]));
               infoWindow.open({ map, anchor: marker });
             });
-
             bikeMarkers.push(marker);
           }
-        } catch (e) {
-          console.warn("Failed to load bikeshare stations:", e);
-        }
-      }
 
-      function showBikeMarkers() {
-        bikeMarkers.forEach(m => m.setMap(map));
-        bikeRefreshInterval = setInterval(fetchBikeStatus, 30000);
+          document.getElementById("bikeCountNum").textContent = bikeMarkers.length;
+        } catch(e) { console.warn("Bike load failed", e); }
       }
-
-      function hideBikeMarkers() {
-        bikeMarkers.forEach(m => m.setMap(null));
-        clearInterval(bikeRefreshInterval);
-      }
-
-      // ── Map rendering ──────────────────────────────────────
 
       function fitToMarkers(markers) {
         if (!markers.length) return;
@@ -547,108 +679,125 @@
         allMarkers.forEach(m => m.setMap(null));
         markersToShow.forEach(m => m.setMap(map));
         clusterer = new markerClusterer.MarkerClusterer({ map, markers: markersToShow });
-        document.getElementById("resultCount").textContent =
-          `${markersToShow.length} camera(s) shown`;
+        document.getElementById("cameraCount").innerHTML =
+          `🚦 <span>${markersToShow.length}</span> cameras`;
         if (markersToShow.length) fitToMarkers(markersToShow);
       }
 
       function applySearch() {
-        const query = document.getElementById("cameraSearch").value.trim().toLowerCase();
-        if (!query) { renderMarkers(allMarkers); return; }
-        const filtered = allMarkers.filter(marker => {
-          const c = marker.cameraData;
+        const q = document.getElementById("cameraSearch").value.trim().toLowerCase();
+        document.getElementById("clearBtn").style.display = q ? "block" : "none";
+        if (!q) { renderMarkers(allMarkers); return; }
+        const filtered = allMarkers.filter(m => {
+          const c = m.cameraData;
           return [c.camera_name, c.camera_site, c.status, c.port]
-            .filter(Boolean)
-            .some(v => String(v).toLowerCase().includes(query));
+            .filter(Boolean).some(v => String(v).toLowerCase().includes(q));
         });
         renderMarkers(filtered);
       }
-
-      // ── Map initialisation ─────────────────────────────────
 
       async function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: 38.8816, lng: -77.0910 },
           zoom: 13,
-          mapTypeControl: true,
+          mapTypeControl: false,
           fullscreenControl: true,
           streetViewControl: false,
           scaleControl: true,
+          styles: [
+            { elementType: "geometry", stylers: [{ color: "#1a2535" }] },
+            { elementType: "labels.text.stroke", stylers: [{ color: "#1a2535" }] },
+            { elementType: "labels.text.fill", stylers: [{ color: "#6a8aaa" }] },
+            { featureType: "road", elementType: "geometry", stylers: [{ color: "#243547" }] },
+            { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#1a2535" }] },
+            { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#2e4a6a" }] },
+            { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#1e3050" }] },
+            { featureType: "water", elementType: "geometry", stylers: [{ color: "#0f1923" }] },
+            { featureType: "poi", elementType: "geometry", stylers: [{ color: "#1e2f42" }] },
+            { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#1a2f22" }] },
+            { featureType: "transit", elementType: "geometry", stylers: [{ color: "#1e3050" }] },
+            { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#2e4560" }] },
+          ],
         });
 
         trafficLayer = new google.maps.TrafficLayer();
         trafficLayer.setMap(map);
-        infoWindow = new google.maps.InfoWindow();
+        infoWindow = new google.maps.InfoWindow({ maxWidth: 320 });
 
-        const response = await fetch("./traffic_cameras_clean.json");
-        const cameras  = await response.json();
-
-        const validCameras = cameras.filter(c =>
-          typeof c.latitude === "number" &&
-          typeof c.longitude === "number" &&
+        const res = await fetch("./traffic_cameras_clean.json");
+        const cameras = await res.json();
+        const valid = cameras.filter(c =>
+          typeof c.latitude === "number" && typeof c.longitude === "number" &&
           (c.camera_name || c.camera_site)
         );
 
-        allMarkers = validCameras.map(c => {
-          const marker = new google.maps.Marker({
+        allMarkers = valid.map(c => {
+          const m = new google.maps.Marker({
             position: { lat: c.latitude, lng: c.longitude },
             title: c.camera_name || c.camera_site || "Camera",
             icon: getMarkerIcon(c.status),
           });
-          marker.cameraData = c;
-          marker.addListener("click", () => {
-            infoWindow.setContent(buildInfoContent(c));
-            infoWindow.open({ map, anchor: marker });
+          m.cameraData = c;
+          m.addListener("click", () => {
+            infoWindow.setContent(buildCameraPopup(c));
+            infoWindow.open({ map, anchor: m });
           });
-          return marker;
+          return m;
         });
 
         renderMarkers(allMarkers);
 
-        document.getElementById("searchBtn").addEventListener("click", applySearch);
-        document.getElementById("resetBtn").addEventListener("click", () => {
+        // Search
+        document.getElementById("cameraSearch").addEventListener("input", applySearch);
+        document.getElementById("clearBtn").addEventListener("click", () => {
           document.getElementById("cameraSearch").value = "";
+          document.getElementById("clearBtn").style.display = "none";
           renderMarkers(allMarkers);
         });
-        document.getElementById("cameraSearch").addEventListener("keydown", e => {
-          if (e.key === "Enter") applySearch();
-        });
 
+        // Camera toggle
         document.getElementById("toggleCameraBtn").addEventListener("click", () => {
-          const btn = document.getElementById("toggleCameraBtn");
           cameraVisible = !cameraVisible;
+          const btn = document.getElementById("toggleCameraBtn");
           if (cameraVisible) {
             renderMarkers(allMarkers);
-            btn.textContent = "Hide Cameras";
-            btn.style.background = "#1a73e8";
+            btn.classList.add("active");
+            btn.classList.remove("toggle-btn");
+            btn.className = "toggle-btn active";
           } else {
             allMarkers.forEach(m => m.setMap(null));
             if (clusterer) clusterer.clearMarkers();
-            btn.textContent = "Show Cameras";
-            btn.style.background = "#5f6368";
+            btn.className = "toggle-btn";
           }
         });
 
+        // Traffic toggle
         document.getElementById("toggleTrafficBtn").addEventListener("click", () => {
           trafficVisible = !trafficVisible;
           trafficLayer.setMap(trafficVisible ? map : null);
           const btn = document.getElementById("toggleTrafficBtn");
-          btn.textContent = trafficVisible ? "Hide Traffic" : "Show Traffic";
+          btn.className = trafficVisible ? "toggle-btn active" : "toggle-btn";
+          btn.textContent = trafficVisible ? "Traffic layer" : "Traffic layer";
         });
 
+        // Load bikeshare
         await loadBikeMarkers();
 
+        // Bikeshare toggle
         document.getElementById("toggleBikeBtn").addEventListener("click", () => {
           bikeVisible = !bikeVisible;
           const btn = document.getElementById("toggleBikeBtn");
+          const countEl = document.getElementById("bikeCount");
           if (bikeVisible) {
-            showBikeMarkers();
-            btn.textContent = "Hide Bikeshare";
-            btn.style.background = "#1e8e3e";
+            bikeMarkers.forEach(m => m.setMap(map));
+            bikeRefreshInterval = setInterval(fetchBikeStatus, 30000);
+            btn.className = "toggle-btn active-bike";
+            countEl.style.display = "block";
           } else {
-            hideBikeMarkers();
-            btn.textContent = "Show Bikeshare";
-            btn.style.background = "#5f6368";
+            bikeMarkers.forEach(m => m.setMap(null));
+            clearInterval(bikeRefreshInterval);
+            btn.className = "toggle-btn";
+            countEl.style.display = "none";
           }
         });
       }
@@ -658,8 +807,7 @@
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY5DaIF5Uuc3dEInFrfDxkZeC7WciFspk&callback=initMap"
-      async
-      defer
+      async defer
     ></script>
   </body>
 </html>
