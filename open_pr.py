@@ -303,7 +303,8 @@ if __name__ == "__main__":
         local_cameras = json.load(f)
 
     # Build branch name with today's date
-    date_str = datetime.utcnow().strftime("%Y-%m-%d")
+    from datetime import datetime, timezone
+    date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H%M")
     branch_name = f"agent/camera-update-{date_str}"
 
     # Run the pipeline

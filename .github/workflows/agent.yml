@@ -55,5 +55,5 @@ jobs:
       - name: Step 4 — Open GitHub PR with safe changes
         run: python open_pr.py
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
