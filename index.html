@@ -92,6 +92,63 @@
       .legend-online  { background: #1e8e3e; }
       .legend-offline { background: #d93025; }
       .legend-unknown { background: #80868b; }
+      .legend-bike    { background: #e65c00; }
+
+      /* ── Bikeshare info window ────────────────────────────── */
+      .bike-info-window {
+        min-width: 220px;
+        font-family: Arial, sans-serif;
+      }
+
+      .bike-info-title {
+        margin: 0 0 8px 0;
+        font-size: 15px;
+        font-weight: 700;
+        color: #202124;
+      }
+
+      .bike-availability {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0;
+      }
+
+      .bike-stat {
+        flex: 1;
+        text-align: center;
+        padding: 8px;
+        border-radius: 8px;
+        background: #f1f3f4;
+      }
+
+      .bike-stat-number {
+        font-size: 22px;
+        font-weight: 700;
+        color: #202124;
+      }
+
+      .bike-stat-label {
+        font-size: 11px;
+        color: #666;
+        margin-top: 2px;
+      }
+
+      .bike-stat.bikes { background: #e8f5e9; }
+      .bike-stat.bikes .bike-stat-number { color: #1e8e3e; }
+      .bike-stat.docks { background: #e3f2fd; }
+      .bike-stat.docks .bike-stat-number { color: #1a73e8; }
+
+      .bike-capacity {
+        font-size: 12px;
+        color: #666;
+        margin-top: 6px;
+      }
+
+      .bike-last-updated {
+        font-size: 11px;
+        color: #999;
+        margin-top: 6px;
+      }
 
       .result-count {
         margin-top: 8px;
@@ -216,6 +273,7 @@
 
       <div class="search-row">
         <button id="toggleTrafficBtn">Hide Traffic</button>
+        <button id="toggleBikeBtn" class="secondary">Show Bikeshare</button>
       </div>
 
       <div id="resultCount" class="result-count">Loading cameras...</div>
@@ -230,6 +288,9 @@
         <div class="legend-item">
           <span class="legend-dot legend-unknown"></span><span>UNKNOWN</span>
         </div>
+        <div class="legend-item">
+          <span class="legend-dot legend-bike"></span><span>Bikeshare</span>
+        </div>
       </div>
     </div>
 
@@ -240,6 +301,18 @@
       let clusterer = null;
       let trafficLayer = null;
       let trafficVisible = true;
+
+      // ── Bikeshare state ────────────────────────────────────
+      let bikeMarkers = [];
+      let bikeVisible = false;
+      let bikeRefreshInterval = null;
+      let bikeStatusIndex = {};
+
+      const GBFS_STATION_INFO   = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_information.json";
+      const GBFS_STATION_STATUS = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_status.json";
+
+      // Arlington bounding box — only show stations inside the county
+      const ARLINGTON = { latMin: 38.82, latMax: 38.94, lngMin: -77.20, lngMax: -77.03 };
 
       // ── Utilities ──────────────────────────────────────────
 
@@ -390,6 +463,129 @@
         }
       }
 
+      // ── Bikeshare ──────────────────────────────────────────
+      //
+      // Fundamental concept: two API calls, joined by station_id
+      // station_information = static (name, location, capacity)
+      // station_status      = live   (bikes available, docks available)
+      // We fetch both, build an index of status by station_id,
+      // then merge when building markers.
+
+      function getBikeMarkerIcon(bikesAvailable) {
+        const color = bikesAvailable > 0 ? "e65c00" : "999999";
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+            <rect x="2" y="2" width="18" height="18" rx="4"
+              fill="#${color}" stroke="white" stroke-width="2"/>
+            <text x="11" y="15" text-anchor="middle"
+              font-size="12" font-family="Arial" font-weight="bold"
+              fill="white">B</text>
+          </svg>`;
+        return {
+          url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg),
+          scaledSize: new google.maps.Size(22, 22),
+        };
+      }
+
+      function buildBikeInfoContent(station, status) {
+        const bikes = status ? status.num_bikes_available : "?";
+        const docks = status ? status.num_docks_available : "?";
+        const updated = status
+          ? new Date(status.last_reported * 1000).toLocaleTimeString()
+          : "unknown";
+
+        return `
+          <div class="bike-info-window">
+            <div class="bike-info-title">${escapeHtml(station.name)}</div>
+            <div class="bike-availability">
+              <div class="bike-stat bikes">
+                <div class="bike-stat-number">${bikes}</div>
+                <div class="bike-stat-label">Bikes</div>
+              </div>
+              <div class="bike-stat docks">
+                <div class="bike-stat-number">${docks}</div>
+                <div class="bike-stat-label">Docks</div>
+              </div>
+            </div>
+            <div class="bike-capacity">Station capacity: ${station.capacity} docks</div>
+            <div class="bike-last-updated">Updated: ${updated}</div>
+          </div>`;
+      }
+
+      async function fetchBikeStatus() {
+        // Fundamental concept: we refresh status every 30 seconds
+        // because GBFS TTL is 60s — fetching at half the TTL keeps data fresh
+        const res = await fetch(GBFS_STATION_STATUS);
+        const json = await res.json();
+        bikeStatusIndex = {};
+        for (const s of json.data.stations) {
+          bikeStatusIndex[s.station_id] = s;
+        }
+        // Update existing marker icons to reflect new availability
+        for (const marker of bikeMarkers) {
+          const status = bikeStatusIndex[marker.stationId];
+          const bikes = status ? status.num_bikes_available : 0;
+          marker.setIcon(getBikeMarkerIcon(bikes));
+        }
+      }
+
+      async function loadBikeMarkers() {
+        const [infoRes, statusRes] = await Promise.all([
+          fetch(GBFS_STATION_INFO),
+          fetch(GBFS_STATION_STATUS)
+        ]);
+        const infoJson   = await infoRes.json();
+        const statusJson = await statusRes.json();
+
+        // Build status index
+        bikeStatusIndex = {};
+        for (const s of statusJson.data.stations) {
+          bikeStatusIndex[s.station_id] = s;
+        }
+
+        // Build markers — only for Arlington stations
+        bikeMarkers = [];
+        for (const station of infoJson.data.stations) {
+          const { lat, lon, station_id } = station;
+
+          // Filter to Arlington bounding box only
+          if (lat < ARLINGTON.latMin || lat > ARLINGTON.latMax ||
+              lon < ARLINGTON.lngMin || lon > ARLINGTON.lngMax) continue;
+
+          const status = bikeStatusIndex[station_id];
+          const bikes  = status ? status.num_bikes_available : 0;
+
+          const marker = new google.maps.Marker({
+            position: { lat, lng: lon },
+            title: station.name,
+            icon: getBikeMarkerIcon(bikes),
+            map: null, // hidden until toggled on
+          });
+
+          marker.stationId = station_id;
+          marker.stationData = station;
+
+          marker.addListener("click", () => {
+            const liveStatus = bikeStatusIndex[station_id];
+            infoWindow.setContent(buildBikeInfoContent(station, liveStatus));
+            infoWindow.open({ map, anchor: marker });
+          });
+
+          bikeMarkers.push(marker);
+        }
+      }
+
+      function showBikeMarkers() {
+        bikeMarkers.forEach(m => m.setMap(map));
+        // Refresh status every 30 seconds while visible
+        bikeRefreshInterval = setInterval(fetchBikeStatus, 30000);
+      }
+
+      function hideBikeMarkers() {
+        bikeMarkers.forEach(m => m.setMap(null));
+        clearInterval(bikeRefreshInterval);
+      }
+
       // ── Map rendering ──────────────────────────────────────
 
       function fitToMarkers(markers) {
@@ -484,6 +680,22 @@
           trafficLayer.setMap(trafficVisible ? map : null);
           document.getElementById("toggleTrafficBtn").textContent =
             trafficVisible ? "Hide Traffic" : "Show Traffic";
+        });
+
+        // Load bikeshare stations in the background
+        await loadBikeMarkers();
+
+        document.getElementById("toggleBikeBtn").addEventListener("click", () => {
+          bikeVisible = !bikeVisible;
+          if (bikeVisible) {
+            showBikeMarkers();
+            document.getElementById("toggleBikeBtn").textContent = "Hide Bikeshare";
+            document.getElementById("toggleBikeBtn").style.background = "#e65c00";
+          } else {
+            hideBikeMarkers();
+            document.getElementById("toggleBikeBtn").textContent = "Show Bikeshare";
+            document.getElementById("toggleBikeBtn").style.background = "";
+          }
         });
       }
     </script>
