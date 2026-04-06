@@ -2464,14 +2464,6 @@
     "status": "ONLINE"
   },
   {
-    "camera_name": "N Randolph St @ Parking Garage - 319",
-    "camera_site": "cam294",
-    "latitude": 38.878903,
-    "longitude": 77.109274,
-    "port": "8001",
-    "status": "ONLINE"
-  },
-  {
     "camera_name": "RT 50 @ Fillmore Cam 2 - 044A",
     "camera_site": "cam297",
     "latitude": 38.873303,
