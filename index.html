@@ -89,17 +89,9 @@
         display: inline-block;
       }
 
-      .legend-online {
-        background: #1e8e3e;
-      }
-
-      .legend-offline {
-        background: #d93025;
-      }
-
-      .legend-unknown {
-        background: #80868b;
-      }
+      .legend-online  { background: #1e8e3e; }
+      .legend-offline { background: #d93025; }
+      .legend-unknown { background: #80868b; }
 
       .result-count {
         margin-top: 8px;
@@ -107,15 +99,16 @@
         font-weight: 600;
       }
 
+      /* ── Info window ─────────────────────────────────────── */
       .info-window {
-        min-width: 240px;
-        max-width: 280px;
+        min-width: 280px;
+        max-width: 320px;
         font-family: Arial, sans-serif;
       }
 
       .info-title {
         margin: 0 0 8px 0;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 700;
         color: #202124;
       }
@@ -135,20 +128,16 @@
         color: white;
       }
 
-      .status-online {
-        background: #1e8e3e;
-      }
-
-      .status-offline {
-        background: #d93025;
-      }
-
-      .status-unknown {
-        background: #80868b;
-      }
+      .status-online  { background: #1e8e3e; }
+      .status-offline { background: #d93025; }
+      .status-unknown { background: #80868b; }
 
       .info-actions {
         margin-top: 10px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
       }
 
       .info-actions a {
@@ -156,6 +145,59 @@
         text-decoration: none;
         font-size: 13px;
         font-weight: 600;
+      }
+
+      /* ── Live feed player ────────────────────────────────── */
+      .live-feed-container {
+        margin-top: 10px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #000;
+        position: relative;
+      }
+
+      .live-feed-container video {
+        width: 100%;
+        display: block;
+        border-radius: 8px;
+      }
+
+      .live-badge {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        background: #d93025;
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+        pointer-events: none;
+      }
+
+      .feed-error {
+        padding: 10px;
+        font-size: 12px;
+        color: #aaa;
+        text-align: center;
+      }
+
+      .load-feed-btn {
+        margin-top: 8px;
+        padding: 7px 12px;
+        background: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .load-feed-btn:hover {
+        background: #1558b0;
       }
     </style>
   </head>
@@ -167,11 +209,7 @@
       <p>Search by camera name, site, status, or corridor.</p>
 
       <div class="search-row">
-        <input
-          id="cameraSearch"
-          type="text"
-          placeholder="Search cameras..."
-        />
+        <input id="cameraSearch" type="text" placeholder="Search cameras..." />
         <button id="searchBtn">Search</button>
         <button id="resetBtn" class="secondary">Reset</button>
       </div>
@@ -184,16 +222,13 @@
 
       <div class="legend">
         <div class="legend-item">
-          <span class="legend-dot legend-online"></span>
-          <span>ONLINE</span>
+          <span class="legend-dot legend-online"></span><span>ONLINE</span>
         </div>
         <div class="legend-item">
-          <span class="legend-dot legend-offline"></span>
-          <span>OFFLINE</span>
+          <span class="legend-dot legend-offline"></span><span>OFFLINE</span>
         </div>
         <div class="legend-item">
-          <span class="legend-dot legend-unknown"></span>
-          <span>UNKNOWN</span>
+          <span class="legend-dot legend-unknown"></span><span>UNKNOWN</span>
         </div>
       </div>
     </div>
@@ -206,6 +241,8 @@
       let trafficLayer = null;
       let trafficVisible = true;
 
+      // ── Utilities ──────────────────────────────────────────
+
       function escapeHtml(value) {
         return String(value ?? "")
           .replace(/&/g, "&amp;")
@@ -216,24 +253,22 @@
       }
 
       function getStatusClass(status) {
-        const normalized = (status || "").toUpperCase().trim();
-        if (normalized === "ONLINE") return "status-online";
-        if (normalized === "OFFLINE") return "status-offline";
+        const s = (status || "").toUpperCase().trim();
+        if (s === "ONLINE")  return "status-online";
+        if (s === "OFFLINE") return "status-offline";
         return "status-unknown";
       }
 
       function getMarkerIcon(status) {
-        const normalized = (status || "").toUpperCase().trim();
-
+        const s = (status || "").toUpperCase().trim();
         let color = "80868b";
-        if (normalized === "ONLINE") color = "1e8e3e";
-        if (normalized === "OFFLINE") color = "d93025";
+        if (s === "ONLINE")  color = "1e8e3e";
+        if (s === "OFFLINE") color = "d93025";
 
         const svg = `
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
             <circle cx="9" cy="9" r="7" fill="#${color}" stroke="white" stroke-width="2"/>
-          </svg>
-        `;
+          </svg>`;
 
         return {
           url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg),
@@ -241,10 +276,45 @@
         };
       }
 
+      // ── Live stream URL builder ────────────────────────────
+      //
+      // Fundamental concept:
+      // Arlington streams HLS video over HTTPS. The port in our JSON
+      // is the base port (e.g. 8001). The HLS port is always base + 10
+      // (e.g. 8011). The stream path uses the camera_site ID.
+      //
+      // Formula discovered from Arlington's live camera page source:
+      // https://itsvideo.arlingtonva.us:{port+10}/live/{camera_site}.stream/playlist.m3u8
+
+      function buildStreamUrl(camera) {
+        const port = parseInt(camera.port);
+        if (!port || isNaN(port)) return null;
+
+        // Extract numeric port if port field still has an old RTSP URL
+        // e.g. "rtsp://158.59.15.203:8001/live/cam1.stream" → 8001
+        let basePort = port;
+        if (camera.port && camera.port.toString().startsWith("rtsp")) {
+          const match = camera.port.match(/:(\d+)\//);
+          if (match) basePort = parseInt(match[1]);
+        }
+
+        const hlsPort = basePort + 10;
+        const site = (camera.camera_site || "").toLowerCase();
+        return `https://itsvideo.arlingtonva.us:${hlsPort}/live/${site}.stream/playlist.m3u8`;
+      }
+
+      // ── Info window content ────────────────────────────────
+
       function buildInfoContent(camera) {
         const status = (camera.status || "UNKNOWN").toUpperCase().trim();
         const statusClass = getStatusClass(status);
         const mapsLink = `https://www.google.com/maps?q=${camera.latitude},${camera.longitude}`;
+        const isOnline = status === "ONLINE";
+        const streamUrl = buildStreamUrl(camera);
+        const canStream = isOnline && streamUrl;
+
+        // Unique video element ID per camera so hls.js targets the right one
+        const videoId = `video-${escapeHtml(camera.camera_site || Math.random())}`;
 
         return `
           <div class="info-window">
@@ -252,10 +322,24 @@
             <div class="info-row"><strong>Site:</strong> ${escapeHtml(camera.camera_site || "N/A")}</div>
             <div class="info-row">
               <strong>Status:</strong>
-              <span class="status-badge ${statusClass}">${escapeHtml(status || "UNKNOWN")}</span>
+              <span class="status-badge ${statusClass}">${escapeHtml(status)}</span>
             </div>
-            <div class="info-row"><strong>Port:</strong> ${escapeHtml(camera.port || "N/A")}</div>
             <div class="info-row"><strong>Coordinates:</strong> ${camera.latitude}, ${camera.longitude}</div>
+
+            ${canStream ? `
+              <button class="load-feed-btn" onclick="loadFeed('${videoId}', '${streamUrl}', this)">
+                ▶ Watch Live Feed
+              </button>
+              <div class="live-feed-container" id="container-${videoId}" style="display:none;">
+                <video id="${videoId}" controls muted playsinline></video>
+                <span class="live-badge">LIVE</span>
+              </div>
+            ` : `
+              <div class="feed-error">
+                ${isOnline ? "Live feed unavailable" : "Camera is offline — no live feed"}
+              </div>
+            `}
+
             <div class="info-actions">
               <a href="${mapsLink}" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
             </div>
@@ -263,63 +347,87 @@
         `;
       }
 
+      // ── Live feed loader ───────────────────────────────────
+      //
+      // Fundamental concept:
+      // We load the feed lazily — only when the user clicks the button.
+      // This avoids starting dozens of video streams just from opening
+      // the map. Each click initialises one hls.js instance for that
+      // specific camera's stream URL.
+
+      function loadFeed(videoId, streamUrl, btn) {
+        const container = document.getElementById(`container-${videoId}`);
+        const video = document.getElementById(videoId);
+
+        btn.style.display = "none";
+        container.style.display = "block";
+
+        if (typeof Hls === "undefined") {
+          container.innerHTML = '<div class="feed-error">Stream player not loaded. Please refresh.</div>';
+          return;
+        }
+
+        if (Hls.isSupported()) {
+          // Most browsers: use hls.js to play the stream
+          const hls = new Hls({
+            maxBufferLength: 10,
+            maxMaxBufferLength: 20,
+          });
+          hls.loadSource(streamUrl);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+          hls.on(Hls.Events.ERROR, (event, data) => {
+            if (data.fatal) {
+              container.innerHTML = '<div class="feed-error">Stream unavailable — camera may be offline or restricted.</div>';
+            }
+          });
+        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+          // Safari: supports HLS natively
+          video.src = streamUrl;
+          video.play();
+        } else {
+          container.innerHTML = '<div class="feed-error">Your browser does not support live streaming.</div>';
+        }
+      }
+
+      // ── Map rendering ──────────────────────────────────────
+
       function fitToMarkers(markers) {
         if (!markers.length) return;
-
         const bounds = new google.maps.LatLngBounds();
-        markers.forEach(marker => bounds.extend(marker.getPosition()));
+        markers.forEach(m => bounds.extend(m.getPosition()));
         map.fitBounds(bounds);
-
         google.maps.event.addListenerOnce(map, "bounds_changed", () => {
-          if (map.getZoom() > 14) {
-            map.setZoom(14);
-          }
+          if (map.getZoom() > 14) map.setZoom(14);
         });
       }
 
       function renderMarkers(markersToShow) {
-        if (clusterer) {
-          clusterer.clearMarkers();
-        }
+        if (clusterer) clusterer.clearMarkers();
+        allMarkers.forEach(m => m.setMap(null));
+        markersToShow.forEach(m => m.setMap(map));
 
-        allMarkers.forEach(marker => marker.setMap(null));
-        markersToShow.forEach(marker => marker.setMap(map));
-
-        clusterer = new markerClusterer.MarkerClusterer({
-          map,
-          markers: markersToShow
-        });
-
+        clusterer = new markerClusterer.MarkerClusterer({ map, markers: markersToShow });
         document.getElementById("resultCount").textContent =
           `${markersToShow.length} camera(s) shown`;
 
-        if (markersToShow.length) {
-          fitToMarkers(markersToShow);
-        }
+        if (markersToShow.length) fitToMarkers(markersToShow);
       }
 
       function applySearch() {
         const query = document.getElementById("cameraSearch").value.trim().toLowerCase();
-
-        if (!query) {
-          renderMarkers(allMarkers);
-          return;
-        }
+        if (!query) { renderMarkers(allMarkers); return; }
 
         const filtered = allMarkers.filter(marker => {
           const c = marker.cameraData;
-          return [
-            c.camera_name,
-            c.camera_site,
-            c.status,
-            c.port
-          ]
+          return [c.camera_name, c.camera_site, c.status, c.port]
             .filter(Boolean)
-            .some(value => String(value).toLowerCase().includes(query));
+            .some(v => String(v).toLowerCase().includes(query));
         });
-
         renderMarkers(filtered);
       }
+
+      // ── Map initialisation ─────────────────────────────────
 
       async function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -333,7 +441,6 @@
 
         trafficLayer = new google.maps.TrafficLayer();
         trafficLayer.setMap(map);
-
         infoWindow = new google.maps.InfoWindow();
 
         const response = await fetch("./traffic_cameras_clean.json");
@@ -356,10 +463,7 @@
 
           marker.addListener("click", () => {
             infoWindow.setContent(buildInfoContent(c));
-            infoWindow.open({
-              map,
-              anchor: marker,
-            });
+            infoWindow.open({ map, anchor: marker });
           });
 
           return marker;
@@ -368,32 +472,24 @@
         renderMarkers(allMarkers);
 
         document.getElementById("searchBtn").addEventListener("click", applySearch);
-
         document.getElementById("resetBtn").addEventListener("click", () => {
           document.getElementById("cameraSearch").value = "";
           renderMarkers(allMarkers);
         });
-
-        document.getElementById("cameraSearch").addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
-            applySearch();
-          }
+        document.getElementById("cameraSearch").addEventListener("keydown", e => {
+          if (e.key === "Enter") applySearch();
         });
-
         document.getElementById("toggleTrafficBtn").addEventListener("click", () => {
           trafficVisible = !trafficVisible;
-
-          if (trafficVisible) {
-            trafficLayer.setMap(map);
-            document.getElementById("toggleTrafficBtn").textContent = "Hide Traffic";
-          } else {
-            trafficLayer.setMap(null);
-            document.getElementById("toggleTrafficBtn").textContent = "Show Traffic";
-          }
+          trafficLayer.setMap(trafficVisible ? map : null);
+          document.getElementById("toggleTrafficBtn").textContent =
+            trafficVisible ? "Hide Traffic" : "Show Traffic";
         });
       }
     </script>
 
+    <!-- hls.js — enables HLS stream playback in non-Safari browsers -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.7/dist/hls.min.js"></script>
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY5DaIF5Uuc3dEInFrfDxkZeC7WciFspk&callback=initMap"
