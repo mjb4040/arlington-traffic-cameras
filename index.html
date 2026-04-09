@@ -480,8 +480,8 @@
 
           <div class="sidebar-section">
             <div class="sidebar-label">Layers</div>
-            <button class="toggle-btn active" id="toggleCameraBtn">🚦 Cameras</button>
-            <button class="toggle-btn active" id="toggleTrafficBtn">🚗 Traffic layer</button>
+            <button class="toggle-btn" id="toggleCameraBtn">🚦 Cameras</button>
+            <button class="toggle-btn" id="toggleTrafficBtn">🚗 Traffic layer</button>
             <button class="toggle-btn" id="toggleBikeBtn">🚲 Bikeshare</button>
             <button class="toggle-btn" id="toggleFlightBtn">✈️ Flights</button>
           </div>
@@ -525,7 +525,7 @@
     <script>
       let map, infoWindow;
       let allMarkers = [], clusterer = null;
-      let trafficLayer = null, trafficVisible = true, cameraVisible = true;
+      let trafficLayer = null, trafficVisible = false, cameraVisible = false;
       let bikeMarkers = [], bikeVisible = false;
       let bikeRefreshInterval = null, bikeStatusIndex = {};
       let arlingtonStationIds = new Set();
@@ -759,23 +759,16 @@
           streetViewControl: false,
           scaleControl: true,
           styles: [
-            { elementType: "geometry", stylers: [{ color: "#1a2535" }] },
-            { elementType: "labels.text.stroke", stylers: [{ color: "#1a2535" }] },
-            { elementType: "labels.text.fill", stylers: [{ color: "#6a8aaa" }] },
-            { featureType: "road", elementType: "geometry", stylers: [{ color: "#243547" }] },
-            { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#1a2535" }] },
-            { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#2e4a6a" }] },
-            { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#1e3050" }] },
-            { featureType: "water", elementType: "geometry", stylers: [{ color: "#0f1923" }] },
-            { featureType: "poi", elementType: "geometry", stylers: [{ color: "#1e2f42" }] },
-            { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#1a2f22" }] },
-            { featureType: "transit", elementType: "geometry", stylers: [{ color: "#1e3050" }] },
-            { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#2e4560" }] },
+            { featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }] },
+            { featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }] },
+            { featureType: "road", elementType: "geometry", stylers: [{ color: "#f0f0f0" }] },
+            { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#d4e3f5" }] },
+            { featureType: "water", elementType: "geometry", stylers: [{ color: "#c9dff0" }] },
+            { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#dff0d8" }] },
           ],
         });
 
         trafficLayer = new google.maps.TrafficLayer();
-        trafficLayer.setMap(map);
         infoWindow = new google.maps.InfoWindow({ maxWidth: 320 });
 
         const res = await fetch("./traffic_cameras_clean.json");
@@ -799,7 +792,8 @@
           return m;
         });
 
-        renderMarkers(allMarkers);
+        // Cameras loaded but hidden by default
+        document.getElementById("cameraCount").textContent = `🚦 ${allMarkers.length} cameras`;
 
         // Search
         document.getElementById("cameraSearch").addEventListener("input", applySearch);
