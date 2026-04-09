@@ -20,6 +20,7 @@
         display: flex;
         flex-direction: column;
         height: 100vh;
+        overflow: hidden;
       }
 
       /* ── Top bar ─────────────────────────────────────────── */
@@ -64,11 +65,40 @@
         white-space: nowrap;
       }
 
-      .divider {
-        width: 1px;
-        height: 20px;
-        background: #243547;
+      /* ── Main content area (sidebar + map) ───────────────── */
+      #content {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      /* ── Sidebar ─────────────────────────────────────────── */
+      #sidebar {
+        width: 220px;
         flex-shrink: 0;
+        background: #1b2a3b;
+        border-right: 1px solid #243547;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 12px;
+        gap: 20px;
+        overflow-y: auto;
+        z-index: 5;
+      }
+
+      .sidebar-section {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .sidebar-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #3a5a7a;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 2px;
       }
 
       /* ── Search ──────────────────────────────────────────── */
@@ -80,8 +110,7 @@
         border: 1px solid #2e4560;
         border-radius: 6px;
         padding: 0 10px;
-        flex: 1;
-        max-width: 320px;
+        width: 100%;
       }
 
       .search-icon {
@@ -114,27 +143,22 @@
       }
 
       /* ── Toggle buttons ──────────────────────────────────── */
-      .toggles {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-left: auto;
-      }
-
       .toggle-btn {
         background: #243547;
         border: 1px solid #2e4560;
         color: #5a7a9a;
-        font-size: 12px;
+        font-size: 13px;
         font-family: inherit;
-        padding: 5px 11px;
-        border-radius: 5px;
+        padding: 8px 12px;
+        border-radius: 6px;
         cursor: pointer;
         transition: all 0.15s;
         white-space: nowrap;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
+        width: 100%;
+        text-align: left;
       }
 
       .toggle-btn.active {
@@ -152,22 +176,31 @@
       /* ── Legend ──────────────────────────────────────────── */
       .legend {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-shrink: 0;
+        flex-direction: column;
+        gap: 6px;
       }
 
       .legend-item {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
         color: #5a7a9a;
-        font-size: 11px;
-        white-space: nowrap;
+        font-size: 12px;
+      }
+
+      /* ── Stats ───────────────────────────────────────────── */
+      .sidebar-stat {
+        font-size: 12px;
+        color: #3a5a7a;
+      }
+
+      .sidebar-stat span {
+        color: #5a7a9a;
+        font-weight: 500;
       }
 
       /* ── Map ─────────────────────────────────────────────── */
-      #map { flex: 1; }
+      #map { flex: 1; min-width: 0; }
 
       /* ── Footer ──────────────────────────────────────────── */
       #footer {
@@ -430,37 +463,52 @@
           <span class="brand-name">Arlington County</span>
           <span class="brand-sub">Traffic & Mobility</span>
         </div>
-
-        <div class="divider"></div>
-
-        <div class="search-wrap">
-          <span class="search-icon">⌕</span>
-          <input id="cameraSearch" type="text" placeholder="Search cameras, corridors, status..." />
-          <button class="search-clear" id="clearBtn">✕</button>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="toggles">
-          <button class="toggle-btn active" id="toggleCameraBtn">🚦 Cameras</button>
-          <button class="toggle-btn active" id="toggleTrafficBtn">Traffic layer</button>
-          <button class="toggle-btn" id="toggleBikeBtn">🚲 Bikeshare</button>
-          <button class="toggle-btn" id="toggleFlightBtn">✈️ Flights</button>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="legend">
-          <div class="legend-item">🚦 Online</div>
-          <div class="legend-item">🔴 Offline</div>
-          <div class="legend-item">⚫ Unknown</div>
-          <div class="legend-item">🚲 Bikes</div>
-          <div class="legend-item">🔒 No bikes</div>
-          <div class="legend-item">✈️ Aircraft</div>
-        </div>
       </div>
 
-      <div id="map"></div>
+      <div id="content">
+
+        <div id="sidebar">
+
+          <div class="sidebar-section">
+            <div class="sidebar-label">Search</div>
+            <div class="search-wrap">
+              <span class="search-icon">⌕</span>
+              <input id="cameraSearch" type="text" placeholder="Search cameras..." />
+              <button class="search-clear" id="clearBtn">✕</button>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-label">Layers</div>
+            <button class="toggle-btn active" id="toggleCameraBtn">🚦 Cameras</button>
+            <button class="toggle-btn active" id="toggleTrafficBtn">🚗 Traffic layer</button>
+            <button class="toggle-btn" id="toggleBikeBtn">🚲 Bikeshare</button>
+            <button class="toggle-btn" id="toggleFlightBtn">✈️ Flights</button>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-label">Legend</div>
+            <div class="legend">
+              <div class="legend-item">🚦 Camera online</div>
+              <div class="legend-item">🔴 Camera offline</div>
+              <div class="legend-item">⚫ Status unknown</div>
+              <div class="legend-item">🚲 Bikes available</div>
+              <div class="legend-item">🔒 No bikes</div>
+              <div class="legend-item">✈️ Aircraft</div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-label">Stats</div>
+            <div class="sidebar-stat" id="cameraCount">Loading...</div>
+            <div class="sidebar-stat" id="bikeCount" style="display:none;">🚲 <span id="bikeCountNum">—</span> stations</div>
+          </div>
+
+        </div>
+
+        <div id="map"></div>
+
+      </div>
 
       <div id="footer">
         <div class="footer-left">
