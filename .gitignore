@@ -2,3 +2,5 @@
 .env
 .venv/
 __pycache__/
+opensky-proxy/env.yaml
+opensky-proxy/.gcloudignore
