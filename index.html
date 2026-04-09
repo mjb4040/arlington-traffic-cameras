@@ -485,7 +485,7 @@
       // Flight layer state
       let flightMarkers = {}, flightVisible = false, flightInterval = null;
 
-      const OPENSKY_URL = "https://opensky-network.org/api/states/all?lamin=38.70&lomin=-77.40&lamax=39.10&lomax=-76.80";
+      const OPENSKY_URL = "https://us-east4-traffic-cams-arlintgton.cloudfunctions.net/opensky-proxy";
       const GBFS_INFO   = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_information.json";
       const GBFS_STATUS = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_status.json";
       const ARLINGTON_GIS = "https://arlgis.arlingtonva.us/arcgis/rest/services/Open_Data/od_Bike_Capital_Bikeshare_Stations_Points/FeatureServer/0/query?where=1%3D1&outFields=StationID&f=json";
@@ -881,7 +881,21 @@
         try {
           const res  = await fetch(OPENSKY_URL);
           const json = await res.json();
-          const states = json.states || [];
+
+          // Cloud Function returns {aircraft: [...]} with named fields
+          // Convert back to OpenSky array format so the rest of the code works
+          const states = json.aircraft
+            ? json.aircraft.map(a => [
+                a.icao24, a.callsign, a.country, null, null,
+                a.longitude, a.latitude,
+                a.altitude_ft ? a.altitude_ft / 3.28084 : null,
+                a.on_ground,
+                a.speed_kts ? a.speed_kts / 1.94384 : null,
+                a.heading,
+                a.vertical_fpm ? a.vertical_fpm / 196.85 : null,
+                null, null, a.squawk, null, null
+              ])
+            : (json.states || []);
 
           const seen = new Set();
 
