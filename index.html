@@ -445,6 +445,7 @@
           <button class="toggle-btn active" id="toggleCameraBtn">🚦 Cameras</button>
           <button class="toggle-btn active" id="toggleTrafficBtn">Traffic layer</button>
           <button class="toggle-btn" id="toggleBikeBtn">🚲 Bikeshare</button>
+          <button class="toggle-btn" id="toggleFlightBtn">✈️ Flights</button>
         </div>
 
         <div class="divider"></div>
@@ -455,6 +456,7 @@
           <div class="legend-item">⚫ Unknown</div>
           <div class="legend-item">🚲 Bikes</div>
           <div class="legend-item">🔒 No bikes</div>
+          <div class="legend-item">✈️ Aircraft</div>
         </div>
       </div>
 
@@ -480,6 +482,10 @@
       let bikeRefreshInterval = null, bikeStatusIndex = {};
       let arlingtonStationIds = new Set();
 
+      // Flight layer state
+      let flightMarkers = {}, flightVisible = false, flightInterval = null;
+
+      const OPENSKY_URL = "https://opensky-network.org/api/states/all?lamin=38.70&lomin=-77.40&lamax=39.10&lomax=-76.80";
       const GBFS_INFO   = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_information.json";
       const GBFS_STATUS = "https://gbfs.lyft.com/gbfs/2.3/dca-cabi/en/station_status.json";
       const ARLINGTON_GIS = "https://arlgis.arlingtonva.us/arcgis/rest/services/Open_Data/od_Bike_Capital_Bikeshare_Stations_Points/FeatureServer/0/query?where=1%3D1&outFields=StationID&f=json";
@@ -705,13 +711,19 @@
           streetViewControl: false,
           scaleControl: true,
           styles: [
-  { featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }] },
-  { featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }] },
-  { featureType: "road", elementType: "geometry", stylers: [{ color: "#f0f0f0" }] },
-  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#d4e3f5" }] },
-  { featureType: "water", elementType: "geometry", stylers: [{ color: "#c9dff0" }] },
-  { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#dff0d8" }] },
-        ],
+            { elementType: "geometry", stylers: [{ color: "#1a2535" }] },
+            { elementType: "labels.text.stroke", stylers: [{ color: "#1a2535" }] },
+            { elementType: "labels.text.fill", stylers: [{ color: "#6a8aaa" }] },
+            { featureType: "road", elementType: "geometry", stylers: [{ color: "#243547" }] },
+            { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#1a2535" }] },
+            { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#2e4a6a" }] },
+            { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#1e3050" }] },
+            { featureType: "water", elementType: "geometry", stylers: [{ color: "#0f1923" }] },
+            { featureType: "poi", elementType: "geometry", stylers: [{ color: "#1e2f42" }] },
+            { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#1a2f22" }] },
+            { featureType: "transit", elementType: "geometry", stylers: [{ color: "#1e3050" }] },
+            { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#2e4560" }] },
+          ],
         });
 
         trafficLayer = new google.maps.TrafficLayer();
@@ -794,6 +806,125 @@
             countEl.style.display = "none";
           }
         });
+
+        // Flight toggle
+        document.getElementById("toggleFlightBtn").addEventListener("click", async () => {
+          flightVisible = !flightVisible;
+          const btn = document.getElementById("toggleFlightBtn");
+          if (flightVisible) {
+            btn.className = "toggle-btn active";
+            await fetchFlights();
+            flightInterval = setInterval(fetchFlights, 15000);
+          } else {
+            btn.className = "toggle-btn";
+            clearInterval(flightInterval);
+            Object.values(flightMarkers).forEach(m => m.setMap(null));
+            flightMarkers = {};
+          }
+        });
+      }
+
+      // ── Flight layer ───────────────────────────────────────
+      //
+      // Fundamental concept: OpenSky returns each aircraft as a raw array.
+      // Field indices: 0=icao24, 1=callsign, 5=lon, 6=lat, 7=alt(m),
+      // 8=on_ground, 9=velocity(m/s), 10=heading, 11=vertical_rate
+      //
+      // We render aircraft using a rotated plane SVG so the icon
+      // points in the direction the aircraft is travelling.
+
+      function makeFlightIcon(heading, onGround) {
+        const deg = heading || 0;
+        const color = onGround ? "#888888" : "#4a9eff";
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+          <g transform="rotate(${deg}, 14, 14)">
+            <text y="22" x="2" font-size="22" font-family="Apple Color Emoji,Segoe UI Emoji,sans-serif">✈️</text>
+          </g>
+        </svg>`;
+        return {
+          url: "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg),
+          scaledSize: new google.maps.Size(28, 28),
+          anchor: new google.maps.Point(14, 14),
+        };
+      }
+
+      function buildFlightPopup(s) {
+        const callsign  = (s[1] || "").trim() || "Unknown";
+        const altM      = s[7];
+        const altFt     = altM ? Math.round(altM * 3.28084).toLocaleString() : "—";
+        const speedMs   = s[9];
+        const speedKts  = speedMs ? Math.round(speedMs * 1.94384) : "—";
+        const heading   = s[10] != null ? Math.round(s[10]) + "°" : "—";
+        const vrate     = s[11];
+        const vrateFpm  = vrate ? Math.round(vrate * 196.85) : 0;
+        const vrateStr  = vrate ? (vrateFpm > 0 ? `+${vrateFpm}` : vrateFpm) + " fpm" : "—";
+        const onGround  = s[8] ? "On ground" : "Airborne";
+        const country   = s[2] || "—";
+        const icao      = s[0] || "—";
+
+        return `<div class="info-window">
+          <div class="info-header">
+            <div class="info-title">✈️ ${escapeHtml(callsign)}</div>
+            <div class="info-site">${escapeHtml(icao)} · ${escapeHtml(country)}</div>
+          </div>
+          <div class="info-body">
+            <div class="info-row"><span class="info-label">Status</span><span class="info-value">${onGround}</span></div>
+            <div class="info-row"><span class="info-label">Altitude</span><span class="info-value">${altFt} ft</span></div>
+            <div class="info-row"><span class="info-label">Speed</span><span class="info-value">${speedKts} kts</span></div>
+            <div class="info-row"><span class="info-label">Heading</span><span class="info-value">${heading}</span></div>
+            <div class="info-row"><span class="info-label">Vertical rate</span><span class="info-value">${vrateStr}</span></div>
+          </div>
+        </div>`;
+      }
+
+      async function fetchFlights() {
+        try {
+          const res  = await fetch(OPENSKY_URL);
+          const json = await res.json();
+          const states = json.states || [];
+
+          const seen = new Set();
+
+          for (const s of states) {
+            const icao = s[0];
+            const lat  = s[6];
+            const lon  = s[5];
+            if (!icao || lat == null || lon == null) continue;
+
+            seen.add(icao);
+
+            if (flightMarkers[icao]) {
+              // Update existing marker position and icon
+              flightMarkers[icao].setPosition({ lat, lng: lon });
+              flightMarkers[icao].setIcon(makeFlightIcon(s[10], s[8]));
+              flightMarkers[icao].stateVector = s;
+            } else {
+              // Create new marker
+              const marker = new google.maps.Marker({
+                position: { lat, lng: lon },
+                title: (s[1] || "").trim() || icao,
+                icon: makeFlightIcon(s[10], s[8]),
+                map: flightVisible ? map : null,
+              });
+              marker.stateVector = s;
+              marker.addListener("click", () => {
+                infoWindow.setContent(buildFlightPopup(marker.stateVector));
+                infoWindow.open({ map, anchor: marker });
+              });
+              flightMarkers[icao] = marker;
+            }
+          }
+
+          // Remove markers for aircraft no longer in the area
+          for (const icao of Object.keys(flightMarkers)) {
+            if (!seen.has(icao)) {
+              flightMarkers[icao].setMap(null);
+              delete flightMarkers[icao];
+            }
+          }
+        } catch(e) {
+          console.warn("Flight fetch failed:", e);
+        }
       }
     </script>
 
